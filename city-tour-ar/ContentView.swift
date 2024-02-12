@@ -9,10 +9,56 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
+    
+    @State var showingChallenge = true;
+    
     var body: some View {
-            ARViewContainer().edgesIgnoringSafeArea(.all)
+        NavigationStack {
+            ZStack {
+                ARViewContainer().edgesIgnoringSafeArea(.all)
+                
+                if (showingChallenge) {
+                    ChallengeView()
+                }
+            }
+            .navigationTitle("AR City Tour")
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    HStack {
+                        Button("Challenge", systemImage: "list.clipboard") {
+                            showingChallenge.toggle()
+                        }
+                        
+                        Button("Map", systemImage: "map") {
+                            
+                        }
+                        
+                        Button("Progress", systemImage: "point.topleft.down.to.point.bottomright.curvepath") {
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
+
+struct ChallengeView : View {
+    var body: some View {
+        VStack(spacing: 10) {
+            Text("Challenge 1")
+                .fontWeight(.black)
+            
+            Text("Find the nearest museum!")
+        }
+        .padding(30)
+        .background(.accent)
+        .cornerRadius(10)
+        .foregroundStyle(.white)
+    }
+}
+
 
 struct ARViewContainer: UIViewRepresentable {
     
