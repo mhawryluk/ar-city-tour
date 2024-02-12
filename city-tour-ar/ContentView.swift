@@ -7,19 +7,27 @@
 
 import SwiftUI
 import RealityKit
+import MapKit
 
 struct ContentView : View {
     
-    @State var showingChallenge = true;
+    @State var showingChallenge = false
+    @State var showingMap = true
     
     var body: some View {
         NavigationStack {
             ZStack {
                 ARViewContainer().edgesIgnoringSafeArea(.all)
                 
-                if (showingChallenge) {
-                    ChallengeView()
-                }
+                VStack {
+                    if (showingChallenge) {
+                        ChallengeView()
+                    }
+                    
+                    if (showingMap) {
+                        MapView()
+                    }
+                }.padding()
             }
             .navigationTitle("AR City Tour")
             .toolbar {
@@ -30,7 +38,7 @@ struct ContentView : View {
                         }
                         
                         Button("Map", systemImage: "map") {
-                            
+                            showingMap.toggle()
                         }
                         
                         Button("Progress", systemImage: "point.topleft.down.to.point.bottomright.curvepath") {
@@ -56,6 +64,28 @@ struct ChallengeView : View {
         .background(.accent)
         .cornerRadius(10)
         .foregroundStyle(.white)
+    }
+}
+
+struct MapView : View {
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50.061389, longitude: 19.938333), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+    
+    var body: some View {
+        Map {
+            Annotation("Kościół Mariacki", coordinate: .mariacki) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(.accent)
+                    Text("⛪️")
+                        .padding(5)
+                }
+            }
+        }.mapControls {
+            MapUserLocationButton()
+            MapCompass()
+            MapScaleView()
+        }
+        .mapStyle(.hybrid(elevation: .realistic))
     }
 }
 
@@ -88,4 +118,8 @@ struct ARViewContainer: UIViewRepresentable {
 
 #Preview {
     ContentView()
+}
+
+extension CLLocationCoordinate2D {
+    static let mariacki = CLLocationCoordinate2D(latitude: 50.061667, longitude: 19.939444)
 }
