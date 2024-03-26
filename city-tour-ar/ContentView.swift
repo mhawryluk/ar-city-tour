@@ -103,7 +103,9 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                     // Creating a plane geometry
                     let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
                     
-                    plane.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.3)
+                    plane.firstMaterial?.diffuse.contents = UIColor.accent.withAlphaComponent(0.7)
+                    
+                    print(imageAnchor.referenceImage.name)
                     
                     // Creating a plane node
                     let planeNode = SCNNode(geometry: plane)
