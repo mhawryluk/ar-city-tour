@@ -18,6 +18,7 @@ struct Task: Hashable {
 struct Tour: Hashable {
     var id: UUID = UUID()
     var name: String
+    var city = "Krakow"
 }
 
 let tasks = [
@@ -25,3 +26,5 @@ let tasks = [
     Task(name: "other", description: "Try to look for the other book."),
     Task(name: "other2", description: "And another one")
 ]
+
+let tours = [defaultTour]

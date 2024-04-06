@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+struct CheckmarkView: View {
+    
+    let textView: AnyView
+    @State var isCompleted = false
+    
+    var body: some View {
+        HStack(spacing: 20) {
+            textView
+            
+            Spacer()
+            
+            Image(
+                systemName: isCompleted ? "checkmark.square" : "square"
+            )
+        }
+    }
+}
+
 struct TaskView : View {
     
     let index: Int
@@ -17,15 +35,9 @@ struct TaskView : View {
     
     var body: some View {
         VStack(spacing: 20) {
-            HStack(spacing: 20) {
-                Text("Task \(index)")
-                
-                Image(
-                    systemName: isCompleted ? "checkmark.square" : "square"
-                )
-            }
-            .bold()
-            .font(.system(size: 22))
+            CheckmarkView(textView: AnyView(Text("Task \(index)")))
+                .bold()
+                .font(.system(size: 22))
         
             Text(description)
         }

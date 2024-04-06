@@ -13,11 +13,42 @@ struct ContentView : View {
     
     var body: some View {
         NavigationStack {
-            TourView(tasks: tasks)
-                .navigationTitle("AR City Tour")
+            
+            List(tours, id: \.self) { tour in
+                NavigationLink {
+                    TourView(tourName: tour.name,
+                             tasks: tasks.filter { task in
+                        task.tourId == tour.id
+                    })
+                } label: {
+                    HStack {
+                        
+                        Image(systemName: "map.circle.fill")
+                        
+                        CheckmarkView(textView: AnyView(
+                            
+                            VStack {
+                                Text(tour.name)
+                                
+                                Text("\(tour.city)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                    .padding(.leading, -15)
+                            }
+                        ))
+                        .font(.headline)
+                        
+                    }.imageScale(.large)
+                    
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle("AR City Tour")
+            .navigationDestination(for: Tour.self) { tour in
+                
+            }
         }
     }
-
 }
 
 #Preview {

@@ -12,21 +12,30 @@ struct MapView : View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50.061389, longitude: 19.938333), span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
     
     var body: some View {
-        Map {
-            Annotation("Kościół Mariacki", coordinate: .mariacki) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(.accent)
-                    Text("⛪️")
-                        .padding(5)
+        VStack {
+            Text("Map")
+                .font(.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .bold()
+                .padding()
+                .padding(.top, 30)
+            
+            Map {
+                Annotation("Kościół Mariacki", coordinate: .mariacki) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(.accent)
+                        Text("⛪️")
+                            .padding(5)
+                    }
                 }
+            }.mapControls {
+                MapUserLocationButton()
+                MapCompass()
+                MapScaleView()
             }
-        }.mapControls {
-            MapUserLocationButton()
-            MapCompass()
-            MapScaleView()
+            .mapStyle(.hybrid(elevation: .realistic))
         }
-        .mapStyle(.hybrid(elevation: .realistic))
     }
 }
 

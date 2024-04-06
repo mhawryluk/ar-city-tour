@@ -88,7 +88,7 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> some UIView {
         
         let sceneView = ARSCNView(frame: .zero)
-        sceneView.showsStatistics = true
+        sceneView.showsStatistics = false
         sceneView.delegate = context.coordinator
         
         //        // Create a cube model
