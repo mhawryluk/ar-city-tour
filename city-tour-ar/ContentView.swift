@@ -103,9 +103,9 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 // Creating a plane geometry
                 let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
                 
-                plane.firstMaterial?.diffuse.contents = UIColor.accent.withAlphaComponent(0.7)
+                plane.firstMaterial?.diffuse.contents = UIColor.green.withAlphaComponent(0.7)
                 
-                print(imageAnchor.referenceImage.name)
+                print("Detected anchor: ", imageAnchor.referenceImage.name)
                 
                 // Creating a plane node
                 let planeNode = SCNNode(geometry: plane)
@@ -114,7 +114,7 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 planeNode.eulerAngles.x = -.pi / 2
                 
                 if let nodeName = imageAnchor.referenceImage.name {
-                    print(nodeName)
+                    print("nodeName: ", nodeName)
                     if let nodeScene = self?.getNodeScene(name: nodeName) {
                         
                         print("nodeScene", nodeScene)
