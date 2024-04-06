@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D31D32A42BB321280094FF88 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D31D32A32BB321280094FF88 /* art.scnassets */; };
+		D3210AEA2BC1BC1800F47F1F /* ARViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AE92BC1BC1800F47F1F /* ARViews.swift */; };
+		D3210AEC2BC1C46000F47F1F /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AEB2BC1C46000F47F1F /* Tasks.swift */; };
+		D3210AF02BC1CAF400F47F1F /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AEF2BC1CAF400F47F1F /* TaskView.swift */; };
+		D3210AF22BC1D21000F47F1F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AF12BC1D21000F47F1F /* MapView.swift */; };
+		D3210AF42BC1D26B00F47F1F /* TourPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AF32BC1D26B00F47F1F /* TourPathView.swift */; };
+		D3210AF62BC1DA8F00F47F1F /* TourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AF52BC1DA8F00F47F1F /* TourView.swift */; };
 		D3ECA3D52ADFDEFF001CC529 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */; };
 		D3ECA3D72ADFDEFF001CC529 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D62ADFDEFF001CC529 /* ContentView.swift */; };
 		D3ECA3D92ADFDF01001CC529 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */; };
@@ -16,6 +22,12 @@
 
 /* Begin PBXFileReference section */
 		D31D32A32BB321280094FF88 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		D3210AE92BC1BC1800F47F1F /* ARViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViews.swift; sourceTree = "<group>"; };
+		D3210AEB2BC1C46000F47F1F /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		D3210AEF2BC1CAF400F47F1F /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		D3210AF12BC1D21000F47F1F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		D3210AF32BC1D26B00F47F1F /* TourPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPathView.swift; sourceTree = "<group>"; };
+		D3210AF52BC1DA8F00F47F1F /* TourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourView.swift; sourceTree = "<group>"; };
 		D3ECA3D12ADFDEFF001CC529 /* city-tour-ar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "city-tour-ar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3ECA3D62ADFDEFF001CC529 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +70,12 @@
 				D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */,
 				D31D32A32BB321280094FF88 /* art.scnassets */,
 				D3ECA3DA2ADFDF01001CC529 /* Preview Content */,
+				D3210AE92BC1BC1800F47F1F /* ARViews.swift */,
+				D3210AEB2BC1C46000F47F1F /* Tasks.swift */,
+				D3210AEF2BC1CAF400F47F1F /* TaskView.swift */,
+				D3210AF12BC1D21000F47F1F /* MapView.swift */,
+				D3210AF32BC1D26B00F47F1F /* TourPathView.swift */,
+				D3210AF52BC1DA8F00F47F1F /* TourView.swift */,
 			);
 			path = "city-tour-ar";
 			sourceTree = "<group>";
@@ -141,7 +159,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3210AF42BC1D26B00F47F1F /* TourPathView.swift in Sources */,
+				D3210AEC2BC1C46000F47F1F /* Tasks.swift in Sources */,
+				D3210AF22BC1D21000F47F1F /* MapView.swift in Sources */,
+				D3210AEA2BC1BC1800F47F1F /* ARViews.swift in Sources */,
 				D3ECA3D72ADFDEFF001CC529 /* ContentView.swift in Sources */,
+				D3210AF02BC1CAF400F47F1F /* TaskView.swift in Sources */,
+				D3210AF62BC1DA8F00F47F1F /* TourView.swift in Sources */,
 				D3ECA3D52ADFDEFF001CC529 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
