@@ -14,7 +14,6 @@ struct TourView : View {
     @State var showingMap = false
     
     @State var currentTaskIndex: Int = 0
-    @State var points: Int = 0
     
     let tasks: [Task]
     
@@ -29,17 +28,18 @@ struct TourView : View {
                         Spacer()
                         
                         VStack(spacing: 0) {
-                            Text("\(points)")
+                            Text("\(currentTaskIndex)/\(tasks.count)")
                                 .font(.system(size: 25))
                             
-                            Text("points")
+                            Text("completed")
                                 .font(.caption)
                         }
                         .foregroundStyle(.accent)
                         .bold()
                         .padding()
-                        .background(.windowBackground)
-                        .border(.accent, width: 2)
+                        .background(.accent.opacity(0.1))
+                        .cornerRadius(20)
+//                        .border(.accent, width: 2)
                     }
                     
                     Spacer()

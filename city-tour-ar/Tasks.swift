@@ -7,12 +7,17 @@
 
 import Foundation
 
-let defaultTour = UUID()
+let defaultTour = Tour(name: "Test tour")
 
 struct Task: Hashable {
-    var tourId: UUID = defaultTour
+    var tourId: UUID = defaultTour.id
     var name: String
     var description: String
+}
+
+struct Tour: Hashable {
+    var id: UUID = UUID()
+    var name: String
 }
 
 let tasks = [
