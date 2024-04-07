@@ -21,7 +21,7 @@ struct TourPathView: View {
                 .padding(.top, 30)
             
             List(Array(tasks.enumerated()), id: \.element) { index, task in
-                TaskView(index: index + 1, description: task.description, isHighlighted: index == currentTaskIndex)
+                TaskView(index: index + 1, description: task.description, isCompleted: index < currentTaskIndex, isHighlighted: index == currentTaskIndex)
                     .listRowSeparator(.hidden)
             }.listStyle(.plain)
         }

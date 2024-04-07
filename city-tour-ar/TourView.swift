@@ -9,25 +9,41 @@ import SwiftUI
 
 struct TourView : View {
     
-    @State var showingChallenge = false
+    @State var showingChallenge = true
     @State var showingPath = false
     @State var showingMap = false
     
     @State var currentTaskIndex: Int = 0
+    @State var taskCompletions: [Bool]
+    @State var currentTaskCompleted: Bool = false
+    @State var allTasksCompleted: Bool = false
     
     let tourName: String
     let tasks: [Task]
     
+    init(tourName: String, tasks: [Task]) {
+        self.tourName = tourName
+        self.tasks = tasks
+        
+        self.taskCompletions = tasks.map{ task in false}
+    }
+    
     var body: some View {
         ZStack {
-            ARViewContainer().edgesIgnoringSafeArea(.all)
-            
+            ARViewContainer(
+                task: tasks[currentTaskIndex],
+                taskCompletedCallback: {
+                    taskCompletions[currentTaskIndex] = true
+                    currentTaskCompleted = true
+                }
+            ).edgesIgnoringSafeArea(.all)
+    
             VStack {
                 HStack {
                     Spacer()
                     
                     VStack(spacing: 0) {
-                        Text("\(currentTaskIndex)/\(tasks.count)")
+                        Text("\(currentTaskIndex + (currentTaskCompleted ? 1 : 0))/\(tasks.count)")
                             .font(.system(size: 25))
                         
                         Text("completed")
@@ -42,11 +58,30 @@ struct TourView : View {
                 
                 Spacer()
                 
-                if (showingChallenge) {
+                if currentTaskCompleted {
+                    Button {
+                        if currentTaskIndex != tasks.count - 1 {
+                            currentTaskIndex += 1
+                            currentTaskCompleted = false
+                        }
+                    } label: {
+                        Label("Next task", systemImage: "arrowshape.right.circle.fill")
+                            .labelStyle(.titleAndIcon)
+                            .imageScale(.large)
+                            .font(.system(size: 20))
+                            .padding(10)
+     
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                }
+                
+                if showingChallenge {
                     TaskView(
                         index: currentTaskIndex + 1,
                         description: tasks[currentTaskIndex].description,
-                        isHighlighted: true
+                        isCompleted: taskCompletions[currentTaskIndex],
+                        isHighlighted: !currentTaskCompleted
                     )
                     .padding(.bottom, 30)
                 }
@@ -84,6 +119,12 @@ struct TourView : View {
             TourPathView(tasks: tasks, currentTaskIndex: currentTaskIndex)
                 .padding()
                 .presentationDragIndicator(.visible)
+        }
+        .alert(isPresented: $allTasksCompleted) {
+            Alert (
+                title: Text("Tour completed"),
+                message: Text("Well done!")
+            )
         }
         .navigationTitle(tourName)
         .navigationBarTitleDisplayMode(.inline)

@@ -10,7 +10,7 @@ import SwiftUI
 struct CheckmarkView: View {
     
     let textView: AnyView
-    @State var isCompleted = false
+    let isCompleted: Bool
     
     var body: some View {
         HStack(spacing: 20) {
@@ -26,16 +26,15 @@ struct CheckmarkView: View {
 }
 
 struct TaskView : View {
-    
     let index: Int
     let description: String
-    
-    @State var isCompleted = false
-    @State var isHighlighted = false
+    let isCompleted: Bool
+    let isHighlighted: Bool
     
     var body: some View {
         VStack(spacing: 20) {
-            CheckmarkView(textView: AnyView(Text("Task \(index)")))
+            CheckmarkView(textView: AnyView(Text("Task \(index)")), isCompleted: isCompleted)
+                .fontDesign(.monospaced)
                 .bold()
                 .font(.system(size: 22))
         
@@ -63,5 +62,5 @@ struct iOSCheckboxToggleStyle: ToggleStyle {
 }
 
 #Preview {
-    TaskView(index: 1, description: "Find the nearest museum!")
+    TaskView(index: 1, description: "Find the nearest museum!", isCompleted: false, isHighlighted: true)
 }

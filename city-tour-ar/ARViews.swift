@@ -12,11 +12,20 @@ import RealityKit
 import SwiftUI
 
 class ARCoordinator: NSObject, ARSCNViewDelegate {
+    let task:  Task
+    let taskCompletedCallback: () -> Void
+    
+    init(task: Task, taskCompletedCallback: @escaping () -> Void) {
+        self.task = task
+        self.taskCompletedCallback = taskCompletedCallback
+    }
+    
+
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         
         // Perform tasks on the background thread
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global().async { [self] in
             
             // Check if the detected anchor is an ARImageAnchor
             if let imageAnchor = anchor as? ARImageAnchor {
@@ -28,6 +37,10 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 
                 print("Detected anchor: ", imageAnchor.referenceImage.name)
                 
+                if imageAnchor.referenceImage.name == self.task.name {
+                    self.taskCompletedCallback()
+                }
+                
                 // Creating a plane node
                 let planeNode = SCNNode(geometry: plane)
                 
@@ -36,7 +49,7 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 
                 if let nodeName = imageAnchor.referenceImage.name {
                     print("nodeName: ", nodeName)
-                    if let nodeScene = self?.getNodeScene(name: nodeName) {
+                    if let nodeScene = self.getNodeScene(name: nodeName) {
                         
                         print("nodeScene", nodeScene)
                         
@@ -85,24 +98,14 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
 
 struct ARViewContainer: UIViewRepresentable {
     
+    let task: Task
+    let taskCompletedCallback: () -> Void
+    
     func makeUIView(context: Context) -> some UIView {
         
         let sceneView = ARSCNView(frame: .zero)
         sceneView.showsStatistics = false
         sceneView.delegate = context.coordinator
-        
-        //        // Create a cube model
-        //        let mesh = MeshResource.generateBox(size: 0.1, cornerRadius: 0.005)
-        //        let material = SimpleMaterial(color: .gray, roughness: 0.15, isMetallic: true)
-        //        let model = ModelEntity(mesh: mesh, materials: [material])
-        //
-        //        // Create horizontal plane anchor for the content
-        //        let anchor = AnchorEntity(.plane(.horizontal, classification: .any, minimumBounds: SIMD2<Float>(0.2, 0.2)))
-        //        anchor.children.append(model)
-        //
-        //        // Add the horizontal plane anchor to the scene
-        //        arView.scene.anchors.append(anchor)
-        
         
         guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
@@ -112,16 +115,13 @@ struct ARViewContainer: UIViewRepresentable {
         configuration.detectionImages = referenceImages
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
-        
         return sceneView
-        
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {}
     
     
     func makeCoordinator() -> ARCoordinator {
-        ARCoordinator()
+        ARCoordinator(task: task, taskCompletedCallback: taskCompletedCallback)
     }
-    
 }
