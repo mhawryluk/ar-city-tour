@@ -9,10 +9,25 @@ import SwiftUI
 import RealityKit
 import ARKit
 
-struct ContentView : View {
+
+struct TourList: View {
+    let title: String
+    let completed: Bool
+    @State var tours: [Tour]
     
     var body: some View {
-        NavigationStack {
+        VStack {
+            HStack {
+                Text(title)
+                    .font(.headline)
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    .background(.accent)
+                    .foregroundColor(.white)
+                    .cornerRadius(20)
+                
+                Spacer()
+            }.padding()
             
             List(tours, id: \.self) { tour in
                 NavigationLink {
@@ -22,31 +37,58 @@ struct ContentView : View {
                     })
                 } label: {
                     HStack {
-                        
                         Image(systemName: "map.circle.fill")
-                        
                         CheckmarkView(textView: AnyView(
                             
-                            VStack {
+                            VStack(alignment: .leading) {
                                 Text(tour.name)
                                 
                                 Text("\(tour.city)")
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
-                                    .padding(.leading, -15)
+                                    .padding(.leading, 3)
                             }
-                        ))
+                        ), isCompleted: completed)
                         .font(.headline)
                         
-                    }.imageScale(.large)
-                    
+                    }
+                    .imageScale(.large)
+
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("AR City Tour")
-            .navigationDestination(for: Tour.self) { tour in
-                
+            .overlay {
+                if tours.isEmpty {
+                    Text("No tours found")
+                        .foregroundStyle(.secondary)
+                }
             }
+        }
+    }
+}
+
+struct ContentView : View {
+    
+    @State var completedTours: [UUID] = [tours[2].id]
+    
+    var body: some View {
+        NavigationStack {
+            VStack(alignment: .leading) {
+                
+//                Text("Choose your today's adventure!")
+//                    .padding()
+//                    .foregroundStyle(.secondary)
+//                    .font(.system(size: 18))
+                
+                TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour.id)
+                })
+                
+                TourList(title: "Completed tours", completed: true, tours: tours.filter { tour in completedTours.contains(tour.id)
+                })
+            }
+            .navigationTitle("AR City Tour")
+            .padding()
+            .background(.accent.opacity(0.05))
         }
     }
 }

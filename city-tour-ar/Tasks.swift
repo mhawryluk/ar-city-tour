@@ -27,4 +27,4 @@ let tasks = [
     Task(name: "other2", description: "And another one")
 ]
 
-let tours = [defaultTour]
+let tours = [defaultTour, Tour(name: "Test tour 2"), Tour(name: "Test tour 3")]

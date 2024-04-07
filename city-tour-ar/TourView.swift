@@ -23,7 +23,6 @@ struct TourView : View {
             ARViewContainer().edgesIgnoringSafeArea(.all)
             
             VStack {
-                
                 HStack {
                     Spacer()
                     
@@ -39,7 +38,6 @@ struct TourView : View {
                     .padding()
                     .background(.accent.opacity(0.1))
                     .cornerRadius(20)
-                    //                        .border(.accent, width: 2)
                 }
                 
                 Spacer()
