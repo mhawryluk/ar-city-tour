@@ -19,13 +19,10 @@ struct TourList: View {
         VStack {
             HStack {
                 Text(title)
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    .background(.accent)
-                    .foregroundColor(.white)
+                    .font(.system(size: 20))
+                    .foregroundColor(.accent)
                     .cornerRadius(20)
-                
+                    .fontDesign(.monospaced)
                 Spacer()
             }.padding()
             
