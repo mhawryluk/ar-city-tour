@@ -48,19 +48,6 @@ struct TaskView : View {
     }
 }
 
-struct iOSCheckboxToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        Button(action: {
-            configuration.isOn.toggle()
-        }, label: {
-            HStack {
-                Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                configuration.label
-            }
-        })
-    }
-}
-
 #Preview {
     TaskView(index: 1, description: "Find the nearest museum!", isCompleted: false, isHighlighted: true)
 }
