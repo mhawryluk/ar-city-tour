@@ -66,7 +66,7 @@ struct TourList: View {
 
 struct ContentView : View {
     
-    @State var completedTours: [UUID] = [tours[2].id]
+    @State var completedTours: [UUID] = [tours[0].id]
     
     var body: some View {
         NavigationStack {

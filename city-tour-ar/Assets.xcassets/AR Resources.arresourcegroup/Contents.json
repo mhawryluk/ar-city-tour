@@ -5,7 +5,13 @@
   },
   "resources" : [
     {
+      "filename" : "malczewski_1.arreferenceimage"
+    },
+    {
       "filename" : "medal.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_1.arreferenceimage"
     }
   ]
 }

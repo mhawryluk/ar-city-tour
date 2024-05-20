@@ -111,7 +111,10 @@ struct TourView : View {
             .frame(maxHeight: .infinity)
         }
         .sheet(isPresented: $showingMap){
-            MapView()
+            MapView(
+                tasks: tasks,
+                currentTaskIndex: currentTaskIndex
+            )
                 .padding()
                 .presentationDragIndicator(.visible)
         }
