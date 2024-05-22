@@ -10,7 +10,7 @@ import MapKit
 
 struct MapView : View {
     
-    let tasks: [Task]
+    let tasks: [TourTask]
     let currentTaskIndex: Int
     
     @State private var showingAllTasks: Bool = false
@@ -26,26 +26,22 @@ struct MapView : View {
     var body: some View {
         VStack {
             
-            VStack {
+            HStack {
                 Text("Map")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
+                    .padding(.top, 20)
                 
                 
-                HStack {
+                Menu {
                     Button {
                         showingAllTasks.toggle()
                     } label: {
                         VStack {
-                            Image(systemName: "eyeglasses").padding(9)
-                            Text("Show all tasks")
+                            Label("Show all tasks", systemImage: "eyeglasses")
                         }
                     }
-                    .padding()
-                    .background(.accent.opacity(0.1))
-                    .cornerRadius(10)
-                    
                     Button {
                         position = MapCameraPosition.region(
                             MKCoordinateRegion(
@@ -56,21 +52,22 @@ struct MapView : View {
                             )
                         )
                     } label: {
-                        VStack {
-                            Image(systemName: "mappin.circle")
-                                .padding(5)
-                            Text("Center on current task")
-                        }
+                        Label("Center on current task", systemImage: "mappin.circle")
                     }
-                    .padding()
-                    .background(.accent.opacity(0.1))
-                    .cornerRadius(10)
+        
+                } label: {
+                    Circle()
+                        .fill(.accent.opacity(0.1))
+                        .frame(width: 30, height: 30)
+                        .overlay {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 13.0, weight: .semibold))
+                                .foregroundColor(.accent)
+                                .padding()
+                        }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
-            .padding(.top, 30)
-            
             
             Map(position: $position) {
                 UserAnnotation()
@@ -103,7 +100,7 @@ struct MapView : View {
                             ZStack {
                                 
                                 if index == currentTaskIndex {
-                                
+                                    
                                     Circle()
                                         .fill(
                                             .blue.opacity(0.8)
@@ -139,7 +136,9 @@ struct MapView : View {
                 MapScaleView()
             }
             .mapStyle(.standard(elevation: .realistic))
-        }.onAppear {
+        }
+        .padding(.horizontal)
+        .onAppear {
             position = MapCameraPosition.region(
                 MKCoordinateRegion(
                     center: CLLocationCoordinate2D(
@@ -149,12 +148,19 @@ struct MapView : View {
                 )
             )
         }
+        
+        TaskView(
+            task: tasks[currentTaskIndex],
+            index: currentTaskIndex + 1,
+            isCompleted: false,
+            isHighlighted: true
+        ).padding()
     }
 }
 
 
 #Preview {
-    MapView(tasks: tasks, currentTaskIndex: 0)
+    MapView(tasks: defaultTasks, currentTaskIndex: 0)
 }
 
 extension CLLocationCoordinate2D {

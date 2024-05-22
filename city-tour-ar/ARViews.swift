@@ -12,10 +12,10 @@ import RealityKit
 import SwiftUI
 
 class ARCoordinator: NSObject, ARSCNViewDelegate {
-    let task:  Task
+    let task:  TourTask
     let taskCompletedCallback: () -> Void
     
-    init(task: Task, taskCompletedCallback: @escaping () -> Void) {
+    init(task: TourTask, taskCompletedCallback: @escaping () -> Void) {
         self.task = task
         self.taskCompletedCallback = taskCompletedCallback
     }
@@ -98,7 +98,7 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
 
 struct ARViewContainer: UIViewRepresentable {
     
-    let task: Task
+    let task: TourTask
     let taskCompletedCallback: () -> Void
     
     func makeUIView(context: Context) -> some UIView {

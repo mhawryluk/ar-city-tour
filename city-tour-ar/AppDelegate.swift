@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import FirebaseCore
+import FirebaseFirestore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,13 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        FirebaseApp.configure()
-
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
-        // Use a UIHostingController as window root view controller.
+        var toursFromDb: [Tour] = []
+        var tasksFromDb: [TourTask] = []
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
+        FirebaseApp.configure()
+        
+        // Create the SwiftUI view that provides the window contents.
+        let contentView = App()
+        // Use a UIHostingController as window root view controller.
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window
         window.makeKeyAndVisible()

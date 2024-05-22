@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TourPathView: View {
-    let tasks: [Task]
+    let tasks: [TourTask]
     @State var currentTaskIndex: Int
     
     var body: some View {
@@ -22,8 +22,8 @@ struct TourPathView: View {
             
             List(Array(tasks.enumerated()), id: \.element) { index, task in
                 TaskView(
+                    task: task,
                     index: index + 1,
-                    description: task.description,
                     isCompleted: index < currentTaskIndex,
                     isHighlighted: index == currentTaskIndex
                 )
@@ -34,5 +34,5 @@ struct TourPathView: View {
 }
 
 #Preview {
-    TourPathView(tasks: tasks, currentTaskIndex: 0)
+    TourPathView(tasks: defaultTasks, currentTaskIndex: 0)
 }

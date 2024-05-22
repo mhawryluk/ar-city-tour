@@ -26,8 +26,8 @@ struct CheckmarkView: View {
 }
 
 struct TaskView : View {
+    let task: TourTask
     let index: Int
-    let description: String
     let isCompleted: Bool
     let isHighlighted: Bool
     
@@ -38,7 +38,7 @@ struct TaskView : View {
                 .bold()
                 .font(.system(size: 22))
         
-            Text(description)
+            Text(task.description)
         }
         .frame(maxWidth: .infinity)
         .padding(30)
@@ -49,5 +49,8 @@ struct TaskView : View {
 }
 
 #Preview {
-    TaskView(index: 1, description: "Find the nearest museum!", isCompleted: false, isHighlighted: true)
+    TaskView(
+        task: TourTask(name: "test", description: "Find the nearest museum"),
+        index: 1,
+        isCompleted: false, isHighlighted: true)
 }

@@ -7,44 +7,44 @@
 
 import Foundation
 
-let defaultTour = Tour(name: "Test tour")
-let testKrakowTour = Tour(name: "Kraków City Center")
+let defaultTour = Tour(id: "l1", name: "Test tour")
+let testKrakowTour = Tour(id: "l2", name: "Kraków City Center")
 
-struct Coords: Hashable {
+struct Coords: Hashable, Codable {
     var lat: Double
     var long: Double
 }
 
-struct Task: Hashable {
-    var tourId: UUID = defaultTour.id
+struct TourTask: Hashable, Codable {
+    var tourId: String = defaultTour.id
     var name: String
     var description: String
     var location: Coords = Coords(lat: 50.063489, long: 19.930816)
 }
 
-struct Tour: Hashable {
-    var id: UUID = UUID()
+struct Tour: Hashable, Codable {
+    var id: String
     var name: String
     var city = "Krakow"
 }
 
-let tasks = [
-    Task(
+let defaultTasks = [
+    TourTask(
         name: "medal",
         description: "Look for the blue book with stars on the cover.",
         location: Coords(lat: 50.064861, long: 19.924016)
     ),
-    Task(name: "other", description: "Try to look for the other book.",  location: Coords(lat: 50.064, long: 19.92)),
-    Task(name: "other2", description: "And another one"),
+    TourTask(name: "other", description: "Try to look for the other book.",  location: Coords(lat: 50.064, long: 19.92)),
+    TourTask(name: "other2", description: "And another one"),
     
-    Task(
+    TourTask(
         tourId: testKrakowTour.id,
         name: "malczewski",
         description: "Look for a memorial commemorating Jacek Malczewski. What year did he start living where you're standing today?",
         location: Coords(lat: 50.063489, long: 19.930816)
     ),
     
-    Task(
+    TourTask(
         tourId: testKrakowTour.id,
         name: "mickiewicz",
         description: "This monument of Adam Mickiewicz is a common meeting spot for locals. What is the year written on the back of it?",
@@ -52,4 +52,4 @@ let tasks = [
     ),
 ]
 
-let tours = [defaultTour, testKrakowTour]
+let defaultTours = [defaultTour, testKrakowTour]

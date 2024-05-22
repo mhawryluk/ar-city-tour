@@ -43,8 +43,9 @@
 		D35295F92BFE207F00BF8A24 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D35295F82BFE207F00BF8A24 /* FirebaseStorage */; };
 		D35295FB2BFE207F00BF8A24 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D35295FA2BFE207F00BF8A24 /* FirebaseStorageCombine-Community */; };
 		D35295FD2BFE207F00BF8A24 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = D35295FC2BFE207F00BF8A24 /* FirebaseVertexAI-Preview */; };
+		D35295FF2BFE3FE900BF8A24 /* TourList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35295FE2BFE3FE900BF8A24 /* TourList.swift */; };
 		D3ECA3D52ADFDEFF001CC529 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */; };
-		D3ECA3D72ADFDEFF001CC529 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D62ADFDEFF001CC529 /* ContentView.swift */; };
+		D3ECA3D72ADFDEFF001CC529 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D62ADFDEFF001CC529 /* App.swift */; };
 		D3ECA3D92ADFDF01001CC529 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */; };
 		D3ECA3DC2ADFDF01001CC529 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ECA3DB2ADFDF01001CC529 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -58,10 +59,11 @@
 		D3210AF32BC1D26B00F47F1F /* TourPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPathView.swift; sourceTree = "<group>"; };
 		D3210AF52BC1DA8F00F47F1F /* TourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourView.swift; sourceTree = "<group>"; };
 		D35295C32BFE202E00BF8A24 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D35295FE2BFE3FE900BF8A24 /* TourList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourList.swift; sourceTree = "<group>"; };
 		D3DA38002BFA3589000F601B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3ECA3D12ADFDEFF001CC529 /* city-tour-ar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "city-tour-ar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D3ECA3D62ADFDEFF001CC529 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D3ECA3D62ADFDEFF001CC529 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3ECA3DB2ADFDF01001CC529 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,7 +129,8 @@
 				D35295C32BFE202E00BF8A24 /* GoogleService-Info.plist */,
 				D3DA38002BFA3589000F601B /* Info.plist */,
 				D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */,
-				D3ECA3D62ADFDEFF001CC529 /* ContentView.swift */,
+				D3ECA3D62ADFDEFF001CC529 /* App.swift */,
+				D35295FE2BFE3FE900BF8A24 /* TourList.swift */,
 				D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */,
 				D31D32A32BB321280094FF88 /* art.scnassets */,
 				D3ECA3DA2ADFDF01001CC529 /* Preview Content */,
@@ -258,9 +261,10 @@
 				D3210AEC2BC1C46000F47F1F /* Tasks.swift in Sources */,
 				D3210AF22BC1D21000F47F1F /* MapView.swift in Sources */,
 				D3210AEA2BC1BC1800F47F1F /* ARViews.swift in Sources */,
-				D3ECA3D72ADFDEFF001CC529 /* ContentView.swift in Sources */,
+				D3ECA3D72ADFDEFF001CC529 /* App.swift in Sources */,
 				D3210AF02BC1CAF400F47F1F /* TaskView.swift in Sources */,
 				D3210AF62BC1DA8F00F47F1F /* TourView.swift in Sources */,
+				D35295FF2BFE3FE900BF8A24 /* TourList.swift in Sources */,
 				D3ECA3D52ADFDEFF001CC529 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +408,6 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs location info to help user navigate to the tour tasks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -439,7 +442,6 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs location info to help user navigate to the tour tasks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

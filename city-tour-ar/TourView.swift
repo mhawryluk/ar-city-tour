@@ -19,9 +19,9 @@ struct TourView : View {
     @State var allTasksCompleted: Bool = false
     
     let tourName: String
-    let tasks: [Task]
+    let tasks: [TourTask]
     
-    init(tourName: String, tasks: [Task]) {
+    init(tourName: String, tasks: [TourTask]) {
         self.tourName = tourName
         self.tasks = tasks
         
@@ -77,8 +77,8 @@ struct TourView : View {
                 
                 if showingChallenge {
                     TaskView(
+                        task: tasks[currentTaskIndex],
                         index: currentTaskIndex + 1,
-                        description: tasks[currentTaskIndex].description,
                         isCompleted: taskCompletions[currentTaskIndex],
                         isHighlighted: !currentTaskCompleted
                     )
@@ -145,6 +145,6 @@ struct TourView : View {
 
 #Preview {
     NavigationStack {
-        TourView(tourName: "Tour", tasks: tasks)
+        TourView(tourName: "Tour", tasks: defaultTasks)
     }
 }

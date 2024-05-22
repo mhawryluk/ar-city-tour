@@ -1,19 +1,17 @@
 //
-//  ContentView.swift
+//  TourList.swift
 //  city-tour-ar
 //
-//  Created by Marcin Hawryluk on 18/10/2023.
+//  Created by Marcin Hawryluk on 22/05/2024.
 //
 
 import SwiftUI
-import RealityKit
-import ARKit
-
 
 struct TourList: View {
     let title: String
     let completed: Bool
-    @State var tours: [Tour]
+    let tours: [Tour]
+    let tasks: [TourTask]
     
     var body: some View {
         VStack {
@@ -24,7 +22,6 @@ struct TourList: View {
                     .padding()
                     .background(.accent.opacity(0.1))
                     .cornerRadius(10)
-//                    .fontDesign(.monospaced)
                 Spacer()
             }.padding()
             
@@ -67,36 +64,6 @@ struct TourList: View {
         }
     }
 }
-
-struct ContentView : View {
-    
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var completedTours: [UUID] = [tours[0].id]
-    
-    var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading) {
-                
-//                Text("Choose your today's adventure!")
-//                    .padding()
-//                    .foregroundStyle(.secondary)
-//                    .font(.system(size: 18))
-                
-                TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour.id)
-                })
-                
-                TourList(title: "Completed tours", completed: true, tours: tours.filter { tour in completedTours.contains(tour.id)
-                })
-            }
-            .navigationTitle("AR Tours")
-            .padding()
-//            .background(.accent.opacity(0.1))
-        }
-    }
-}
-
 #Preview {
-    ContentView()
+    TourList(title: "New list", completed: false, tours: [defaultTours[0]], tasks: defaultTasks)
 }
-
-
