@@ -44,16 +44,15 @@ struct TourView : View {
                     
                     VStack(spacing: 0) {
                         Text("\(currentTaskIndex + (currentTaskCompleted ? 1 : 0))/\(tasks.count)")
-                            .font(.system(size: 25))
+                            .font(.system(size: 20))
                         
                         Text("completed")
                             .font(.caption)
                     }
                     .foregroundStyle(.accent)
-                    .bold()
                     .padding()
                     .background(.accent.opacity(0.1))
-                    .cornerRadius(20)
+                    .cornerRadius(10)
                 }
                 
                 Spacer()
@@ -90,18 +89,27 @@ struct TourView : View {
                     Button("Tour path", systemImage: "point.topleft.down.to.point.bottomright.curvepath") {
                         showingPath.toggle()
                     }
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
                     
                     Spacer()
                     
                     Button("Task", systemImage: "list.clipboard") {
                         showingChallenge.toggle()
                     }
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
                     
                     Spacer()
                     
                     Button("Map", systemImage: "map") {
                         showingMap.toggle()
                     }
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
                     
                 }
                 .imageScale(.large)

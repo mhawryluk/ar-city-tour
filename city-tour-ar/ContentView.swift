@@ -85,7 +85,7 @@ struct ContentView : View {
             }
             .navigationTitle("AR City Tour")
             .padding()
-            .background(.accent.opacity(0.05))
+            .background(.accent.opacity(0.1))
         }
     }
 }

@@ -26,16 +26,47 @@ struct MapView : View {
     var body: some View {
         VStack {
             
-            HStack {
+            VStack {
                 Text("Map")
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
-
                 
-                Button("Show all tasks", systemImage: "eyeglasses") {
-                    showingAllTasks.toggle()
+                
+                HStack {
+                    Button {
+                        showingAllTasks.toggle()
+                    } label: {
+                        VStack {
+                            Image(systemName: "eyeglasses").padding(9)
+                            Text("Show all tasks")
+                        }
+                    }
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
+                    
+                    Button {
+                        position = MapCameraPosition.region(
+                            MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(
+                                    latitude: tasks[currentTaskIndex].location.lat,
+                                    longitude: tasks[currentTaskIndex].location.long),
+                                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                            )
+                        )
+                    } label: {
+                        VStack {
+                            Image(systemName: "mappin.circle")
+                                .padding(5)
+                            Text("Center on current task")
+                        }
+                    }
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
             .padding(.top, 30)
@@ -47,6 +78,21 @@ struct MapView : View {
                 ForEach(Array(tasks.enumerated()), id: \.offset) { index, task in
                     
                     if showingAllTasks || index <= currentTaskIndex {
+                        
+                        
+                        if index == currentTaskIndex {
+                            MapCircle(
+                                
+                                center: CLLocationCoordinate2D(
+                                    latitude: task.location.lat,
+                                    longitude: task.location.long),
+                                
+                                radius: 20
+                            ).foregroundStyle(
+                                .blue.opacity(0.2)
+                            )
+                        }
+                        
                         Annotation(
                             "#\(index + 1) (\(task.name))",
                             coordinate: CLLocationCoordinate2D(
@@ -57,6 +103,7 @@ struct MapView : View {
                             ZStack {
                                 
                                 if index == currentTaskIndex {
+                                
                                     Circle()
                                         .fill(
                                             .blue.opacity(0.8)

@@ -33,7 +33,7 @@ struct TaskView : View {
     
     var body: some View {
         VStack(spacing: 20) {
-            CheckmarkView(textView: AnyView(Text("Task \(index)")), isCompleted: isCompleted)
+            CheckmarkView(textView: AnyView(Text("#\(index)")), isCompleted: isCompleted)
                 .fontDesign(.monospaced)
                 .bold()
                 .font(.system(size: 22))
