@@ -19,10 +19,12 @@ struct TourList: View {
         VStack {
             HStack {
                 Text(title)
-                    .font(.system(size: 20))
+                    .font(.system(size: 15))
                     .foregroundColor(.accent)
-                    .cornerRadius(20)
-                    .fontDesign(.monospaced)
+                    .padding()
+                    .background(.accent.opacity(0.1))
+                    .cornerRadius(10)
+//                    .fontDesign(.monospaced)
                 Spacer()
             }.padding()
             
@@ -35,6 +37,8 @@ struct TourList: View {
                 } label: {
                     HStack {
                         Image(systemName: "map.circle.fill")
+                            .foregroundStyle(.accent)
+                        
                         CheckmarkView(textView: AnyView(
                             
                             VStack(alignment: .leading) {
@@ -66,6 +70,7 @@ struct TourList: View {
 
 struct ContentView : View {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var completedTours: [UUID] = [tours[0].id]
     
     var body: some View {
@@ -83,9 +88,9 @@ struct ContentView : View {
                 TourList(title: "Completed tours", completed: true, tours: tours.filter { tour in completedTours.contains(tour.id)
                 })
             }
-            .navigationTitle("AR City Tour")
+            .navigationTitle("AR Tours")
             .padding()
-            .background(.accent.opacity(0.1))
+//            .background(.accent.opacity(0.1))
         }
     }
 }

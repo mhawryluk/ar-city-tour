@@ -20,7 +20,7 @@ struct CheckmarkView: View {
             
             Image(
                 systemName: isCompleted ? "checkmark.square" : "square"
-            )
+            ).foregroundStyle(.secondary)
         }
     }
 }
