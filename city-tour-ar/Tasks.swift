@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 let defaultTour = Tour(id: "l1", name: "Test tour")
 let testKrakowTour = Tour(id: "l2", name: "Kraków City Center")
@@ -13,6 +14,14 @@ let testKrakowTour = Tour(id: "l2", name: "Kraków City Center")
 struct Coords: Hashable, Codable {
     var lat: Double
     var long: Double
+    
+    func asCoordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: long)
+    }
+    
+    func asMapItem() -> MKMapItem {
+        return MKMapItem(placemark: MKPlacemark(coordinate: asCoordinate()))
+    }
 }
 
 struct TourTask: Hashable, Codable {

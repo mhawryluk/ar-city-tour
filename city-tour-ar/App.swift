@@ -22,6 +22,7 @@ struct App : View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
+
                 
                 TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour.id)
                 }, tasks: tasks)
@@ -50,12 +51,11 @@ struct App : View {
                         tasks.append(data)
                     }
                     
-                    
                 } catch {
                     print("Error getting document: \(error)")
                 }
                 
-                print(tours, tasks)
+//                print(tours, tasks)
                 isLoading = false
             }
         }

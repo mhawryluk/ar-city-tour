@@ -7,6 +7,42 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
+import CoreLocationUI
+
+
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    let manager = CLLocationManager()
+    
+    @Published var location: CLLocationCoordinate2D?
+    
+    override init() {
+        super.init()
+        manager.delegate = self
+    }
+    
+    func requestLocation() {
+        manager.requestLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            manager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if locations.first != nil {
+            location = locations.first?.coordinate
+        }
+        
+    }
+}
 
 struct MapView : View {
     
@@ -14,6 +50,8 @@ struct MapView : View {
     let currentTaskIndex: Int
     
     @State private var showingAllTasks: Bool = false
+    @State private var route: MKRoute?
+    @StateObject var locationManager = LocationManager()
     
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
@@ -32,6 +70,22 @@ struct MapView : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
                     .padding(.top, 20)
+                
+                
+                Button {
+                    getDirections()
+                } label: {
+                    Circle()
+                        .fill(.accent.opacity(0.1))
+                        .frame(width: 40, height: 40)
+                        .overlay {
+                            Image(systemName: "arrow.triangle.turn.up.right.diamond")
+                                .font(.system(size: 18.0, weight: .semibold))
+                                .foregroundColor(.accent)
+                                .padding()
+                        }
+                }
+                .labelStyle(.iconOnly)
                 
                 
                 Menu {
@@ -54,14 +108,14 @@ struct MapView : View {
                     } label: {
                         Label("Center on current task", systemImage: "mappin.circle")
                     }
-        
+                    
                 } label: {
                     Circle()
                         .fill(.accent.opacity(0.1))
-                        .frame(width: 30, height: 30)
+                        .frame(width: 40, height: 40)
                         .overlay {
                             Image(systemName: "ellipsis")
-                                .font(.system(size: 13.0, weight: .semibold))
+                                .font(.system(size: 18.0, weight: .semibold))
                                 .foregroundColor(.accent)
                                 .padding()
                         }
@@ -130,6 +184,11 @@ struct MapView : View {
                     }
                 }
                 
+                if let route {
+                    MapPolyline(route)
+                        .stroke(.blue, lineWidth: 5)
+                }
+                
             }.mapControls {
                 MapUserLocationButton()
                 MapCompass()
@@ -147,6 +206,8 @@ struct MapView : View {
                     span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
                 )
             )
+            
+            locationManager.requestLocation()
         }
         
         TaskView(
@@ -155,6 +216,29 @@ struct MapView : View {
             isCompleted: false,
             isHighlighted: true
         ).padding()
+    }
+    
+    
+    func getDirections() {
+        locationManager.requestLocation()
+        
+        guard let location = locationManager.location else {
+            return
+        }
+        
+        print("current location: ", location)
+        
+        self.route = nil
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
+        request.destination = self.tasks[self.currentTaskIndex].location.asMapItem()
+        
+        Task {
+            let directions = MKDirections(request: request)
+            let response = try? await directions.calculate()
+            route = response?.routes.first
+        }
     }
 }
 

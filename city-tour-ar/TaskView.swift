@@ -42,15 +42,26 @@ struct TaskView : View {
         }
         .frame(maxWidth: .infinity)
         .padding(30)
-        .background(.accent.opacity(isHighlighted ? 1 : 0.5))
+        .background((isHighlighted ? Color.blue : Color.accent).opacity(isHighlighted ? 1 : 0.5))
         .cornerRadius(10)
         .foregroundStyle(.white)
     }
 }
 
 #Preview {
-    TaskView(
-        task: TourTask(name: "test", description: "Find the nearest museum"),
-        index: 1,
-        isCompleted: false, isHighlighted: true)
+    VStack {
+        TaskView(
+            task: TourTask(name: "test", description: "Find the nearest museum"),
+            index: 1,
+            isCompleted: true,
+            isHighlighted: true
+        )
+        
+        TaskView(
+            task: TourTask(name: "test2", description: "Find the nearest museum"),
+            index: 2,
+            isCompleted: false,
+            isHighlighted: false
+        )
+    }
 }

@@ -18,6 +18,9 @@ struct TourView : View {
     @State var currentTaskCompleted: Bool = false
     @State var allTasksCompleted: Bool = false
     
+    
+    @State private var offset = CGSize.zero
+    
     let tourName: String
     let tasks: [TourTask]
     
@@ -83,6 +86,22 @@ struct TourView : View {
                         isHighlighted: !currentTaskCompleted
                     )
                     .padding(.bottom, 30)
+                    .offset(y: offset.height * 5)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                if gesture.translation.height > 0 {
+                                    offset = gesture.translation
+                                }
+                            }
+                            .onEnded { _ in
+                                if offset.height > 30 {
+                                    self.showingChallenge = false
+                                } else {
+                                    offset = .zero
+                                }
+                            }
+                    )
                 }
                 
                 HStack {
@@ -96,11 +115,13 @@ struct TourView : View {
                     Spacer()
                     
                     Button("Task", systemImage: "list.clipboard") {
-                        showingChallenge.toggle()
+                        offset = .zero
+                        showingChallenge = true
                     }
                     .padding()
                     .background(.accent.opacity(0.1))
                     .cornerRadius(10)
+                    .opacity(showingChallenge ? 0 : 1)
                     
                     Spacer()
                     
