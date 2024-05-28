@@ -93,7 +93,7 @@ struct MapView : View {
                         showingAllTasks.toggle()
                     } label: {
                         VStack {
-                            Label("Show all tasks", systemImage: "eyeglasses")
+                            Label(showingAllTasks ? "Show only completed and current tasks" : "Show all tasks", systemImage: "eyeglasses")
                         }
                     }
                     Button {
@@ -121,7 +121,7 @@ struct MapView : View {
                         }
                 }
             }
-            .padding()
+            .padding(.vertical)
             
             Map(position: $position) {
                 UserAnnotation()
