@@ -5,6 +5,12 @@
   },
   "resources" : [
     {
+      "filename" : "bagatela_1.arreferenceimage"
+    },
+    {
+      "filename" : "bagatela_2.arreferenceimage"
+    },
+    {
       "filename" : "malczewski_1.arreferenceimage"
     },
     {
@@ -12,6 +18,27 @@
     },
     {
       "filename" : "mickiewicz_1.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_2.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_3.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_4.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_5.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_6.arreferenceimage"
+    },
+    {
+      "filename" : "mickiewicz_7.arreferenceimage"
+    },
+    {
+      "filename" : "other.arreferenceimage"
     }
   ]
 }

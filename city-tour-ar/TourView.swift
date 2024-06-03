@@ -34,10 +34,17 @@ struct TourView : View {
     var body: some View {
         ZStack {
             ARViewContainer(
-                task: tasks[currentTaskIndex],
-                taskCompletedCallback: {
-                    taskCompletions[currentTaskIndex] = true
-                    currentTaskCompleted = true
+                taskCompletedCallback: { task in
+                    if task == tasks[currentTaskIndex].name {
+                        taskCompletions[currentTaskIndex] = true
+                        currentTaskCompleted = true
+                    } else {
+                        for i in currentTaskIndex..<tasks.count {
+                            if task == tasks[i].name {
+                                taskCompletions[i] = true
+                            }
+                        }
+                    }
                 }
             ).edgesIgnoringSafeArea(.all)
     
@@ -62,10 +69,7 @@ struct TourView : View {
                 
                 if currentTaskCompleted {
                     Button {
-                        if currentTaskIndex != tasks.count - 1 {
-                            currentTaskIndex += 1
-                            currentTaskCompleted = false
-                        }
+                        nextTask()
                     } label: {
                         Label("Next task", systemImage: "arrowshape.right.circle.fill")
                             .labelStyle(.titleAndIcon)
@@ -160,6 +164,13 @@ struct TourView : View {
         }
         .navigationTitle(tourName)
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func nextTask() {
+        if currentTaskIndex != tasks.count - 1 {
+            currentTaskIndex += 1
+            currentTaskCompleted = taskCompletions[currentTaskIndex]
+        }
     }
 }
 

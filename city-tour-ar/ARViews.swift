@@ -12,15 +12,13 @@ import RealityKit
 import SwiftUI
 
 class ARCoordinator: NSObject, ARSCNViewDelegate {
-    let task:  TourTask
-    let taskCompletedCallback: () -> Void
     
-    init(task: TourTask, taskCompletedCallback: @escaping () -> Void) {
-        self.task = task
+    let taskCompletedCallback: (String) -> Void
+    
+    init(taskCompletedCallback: @escaping (String) -> Void) {
         self.taskCompletedCallback = taskCompletedCallback
     }
     
-
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         
@@ -37,9 +35,12 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 
                 print("Detected anchor: ", imageAnchor.referenceImage.name)
                 
-                if imageAnchor.referenceImage.name == self.task.name {
-                    self.taskCompletedCallback()
+                let name = imageAnchor.referenceImage.name
+                guard let taskName = name?.split(separator: "_").first else {
+                    return
                 }
+                
+                self.taskCompletedCallback(String(taskName))
                 
                 // Creating a plane node
                 let planeNode = SCNNode(geometry: plane)
@@ -47,17 +48,16 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 // Rotate the plane node 90 degrees counter clockwise
                 planeNode.eulerAngles.x = -.pi / 2
                 
-                if let nodeName = imageAnchor.referenceImage.name {
-                    print("nodeName: ", nodeName)
-                    if let nodeScene = self.getNodeScene(name: nodeName) {
-                        
-                        print("nodeScene", nodeScene)
-                        
-                        // Adding nodes on the main thread
-                        DispatchQueue.main.async {
-                            planeNode.addChildNode(nodeScene)
-                            node.addChildNode(planeNode)
-                        }
+                
+                print("taskName: ", taskName)
+                if let nodeScene = self.getNodeScene(name: String(taskName)) {
+                    
+                    print("nodeScene", nodeScene)
+                    
+                    // Adding nodes on the main thread
+                    DispatchQueue.main.async {
+                        planeNode.addChildNode(nodeScene)
+                        node.addChildNode(planeNode)
                     }
                 }
             }
@@ -97,9 +97,8 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
 
 
 struct ARViewContainer: UIViewRepresentable {
-    
-    let task: TourTask
-    let taskCompletedCallback: () -> Void
+
+    let taskCompletedCallback: (String) -> Void
     
     func makeUIView(context: Context) -> some UIView {
         
@@ -122,6 +121,6 @@ struct ARViewContainer: UIViewRepresentable {
     
     
     func makeCoordinator() -> ARCoordinator {
-        ARCoordinator(task: task, taskCompletedCallback: taskCompletedCallback)
+        ARCoordinator(taskCompletedCallback: taskCompletedCallback)
     }
 }

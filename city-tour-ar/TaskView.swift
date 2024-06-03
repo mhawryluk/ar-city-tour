@@ -42,7 +42,7 @@ struct TaskView : View {
         }
         .frame(maxWidth: .infinity)
         .padding(30)
-        .background((isHighlighted ? Color.blue : Color.accent).opacity(isHighlighted ? 1 : 0.5))
+        .background(Color.blue.opacity(isHighlighted ? 1 : 0.5))
         .cornerRadius(10)
         .foregroundStyle(.white)
     }

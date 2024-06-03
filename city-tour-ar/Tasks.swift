@@ -55,6 +55,13 @@ let defaultTasks = [
     
     TourTask(
         tourId: testKrakowTour.id,
+        name: "bagatela",
+        description: "Look for a memorial plate about the Bagatela Theater, which you will stand next to. Hint: you might need to look down. Who came up with the name Bagatela?",
+        location: Coords(lat: 50.06355, long: 19.93264)
+    ),
+    
+    TourTask(
+        tourId: testKrakowTour.id,
         name: "mickiewicz",
         description: "This monument of Adam Mickiewicz is a common meeting spot for locals. What is the year written on the back of it?",
         location: Coords(lat: 50.061400, long: 19.938143)
