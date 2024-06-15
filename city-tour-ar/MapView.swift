@@ -22,6 +22,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func requestLocation() {
+        print("1: requesting location")
         manager.requestLocation()
     }
     
@@ -30,6 +31,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("2: ", status)
+        
         if status == .authorizedWhenInUse {
             manager.requestLocation()
         }
@@ -37,10 +40,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        print("3: ", locations)
+        
         if locations.first != nil {
             location = locations.first?.coordinate
         }
-        
     }
 }
 
@@ -50,8 +54,8 @@ struct MapView : View {
     let currentTaskIndex: Int
     
     @State private var showingAllTasks: Bool = false
-    @State private var route: MKRoute?
     @StateObject var locationManager = LocationManager()
+    @State var route: MKRoute?
     
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
@@ -69,24 +73,16 @@ struct MapView : View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
-                    .padding(.top, 20)
-                
                 
                 Button {
                     getDirections()
                 } label: {
-                    Circle()
-                        .fill(.accent.opacity(0.1))
-                        .frame(width: 40, height: 40)
-                        .overlay {
-                            Image(systemName: "arrow.triangle.turn.up.right.diamond")
-                                .font(.system(size: 18.0, weight: .semibold))
-                                .foregroundColor(.accent)
-                                .padding()
-                        }
+                    Label("Get route", systemImage: "arrow.triangle.turn.up.right.diamond")
+                        .padding(.vertical, 5)
                 }
-                .labelStyle(.iconOnly)
-                
+                .buttonStyle(.bordered)
+                .tint(.accent.opacity(0.2))
+                .foregroundStyle(.accent)
                 
                 Menu {
                     Button {
@@ -110,18 +106,15 @@ struct MapView : View {
                     }
                     
                 } label: {
-                    Circle()
-                        .fill(.accent.opacity(0.1))
-                        .frame(width: 40, height: 40)
-                        .overlay {
-                            Image(systemName: "ellipsis")
-                                .font(.system(size: 18.0, weight: .semibold))
-                                .foregroundColor(.accent)
-                                .padding()
-                        }
+                    Label("Options", systemImage: "ellipsis.circle")
+                        .labelStyle(.iconOnly)
+                        .padding(.vertical, 5)
                 }
+                .buttonStyle(.bordered)
+                .tint(.accent.opacity(0.2))
+                .foregroundStyle(.accent)
             }
-            .padding(.vertical)
+                .padding(.top, 30)
             
             Map(position: $position) {
                 UserAnnotation()
@@ -129,8 +122,7 @@ struct MapView : View {
                 ForEach(Array(tasks.enumerated()), id: \.offset) { index, task in
                     
                     if showingAllTasks || index <= currentTaskIndex {
-                        
-                        
+            
                         if index == currentTaskIndex {
                             MapCircle(
                                 
@@ -207,7 +199,10 @@ struct MapView : View {
                 )
             )
             
-            locationManager.requestLocation()
+//            locationManager.requestLocation()
+        }
+        .onReceive(locationManager.$location) { newLocation in
+            getDirections()
         }
         
         TaskView(
@@ -220,8 +215,7 @@ struct MapView : View {
     
     
     func getDirections() {
-        locationManager.requestLocation()
-        
+
         guard let location = locationManager.location else {
             return
         }
