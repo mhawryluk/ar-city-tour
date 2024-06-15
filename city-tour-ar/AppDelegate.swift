@@ -7,8 +7,7 @@
 
 import UIKit
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        var toursFromDb: [Tour] = []
-        var tasksFromDb: [TourTask] = []
-        
         let window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
+        Auth.auth().signInAnonymously { authResult, error in
+            guard let user = authResult?.user else {
+                print("Error authenticating", error ?? "")
+                return
+            }
+            
+            let uid = user.uid
+            print("uid: ", uid)
+        }
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = App()
@@ -49,7 +54,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
-
 }
 
