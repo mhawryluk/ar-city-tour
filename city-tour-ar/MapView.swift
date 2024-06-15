@@ -56,6 +56,7 @@ struct MapView : View {
     @State private var showingAllTasks: Bool = false
     @StateObject var locationManager = LocationManager()
     @State var route: MKRoute?
+    @State var showingRoute = false
     
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
@@ -75,10 +76,18 @@ struct MapView : View {
                     .bold()
                 
                 Button {
-                    getDirections()
+                    showingRoute.toggle()
+                    
+                    if showingRoute {
+                        getDirections()
+                    }
                 } label: {
-                    Label("Get route", systemImage: "arrow.triangle.turn.up.right.diamond")
-                        .padding(.vertical, 5)
+                    if showingRoute && route == nil {
+                        ProgressView()
+                    } else {
+                        Label(showingRoute ? "Hide route" : "Show route", systemImage: "arrow.triangle.turn.up.right.diamond")
+                            .padding(.vertical, 5)
+                    }
                 }
                 .buttonStyle(.bordered)
                 .tint(.accent.opacity(0.2))
@@ -176,9 +185,11 @@ struct MapView : View {
                     }
                 }
                 
-                if let route {
-                    MapPolyline(route)
-                        .stroke(.blue, lineWidth: 5)
+                if showingRoute {
+                    if let route {
+                        MapPolyline(route)
+                            .stroke(.blue, lineWidth: 5)
+                    }
                 }
                 
             }.mapControls {
@@ -199,7 +210,7 @@ struct MapView : View {
                 )
             )
             
-//            locationManager.requestLocation()
+            locationManager.requestLocation()
         }
         .onReceive(locationManager.$location) { newLocation in
             getDirections()
