@@ -26,7 +26,9 @@ struct TourPathView: View {
                     index: index + 1,
                     isCompleted: index < currentTaskIndex,
                     isHighlighted: index == currentTaskIndex
-                )
+                ) {
+                    
+                }
                 .listRowSeparator(.hidden)
             }.listStyle(.plain)
         }

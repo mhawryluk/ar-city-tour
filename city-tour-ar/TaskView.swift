@@ -25,11 +25,13 @@ struct CheckmarkView: View {
     }
 }
 
-struct TaskView : View {
+struct TaskView<Content: View> : View {
     let task: TourTask
     let index: Int
     let isCompleted: Bool
     let isHighlighted: Bool
+    
+    @ViewBuilder let content: Content
     
     var body: some View {
         VStack(spacing: 20) {
@@ -39,6 +41,8 @@ struct TaskView : View {
                 .font(.system(size: 22))
         
             Text(task.description)
+            
+            content
         }
         .frame(maxWidth: .infinity)
         .padding(30)
@@ -55,13 +59,17 @@ struct TaskView : View {
             index: 1,
             isCompleted: true,
             isHighlighted: true
-        )
+        ) {
+            
+        }
         
         TaskView(
             task: TourTask(name: "test2", description: "Find the nearest museum"),
             index: 2,
             isCompleted: false,
             isHighlighted: false
-        )
+        ) {
+            
+        }
     }
 }

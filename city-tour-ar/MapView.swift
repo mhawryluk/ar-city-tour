@@ -221,7 +221,9 @@ struct MapView : View {
             index: currentTaskIndex + 1,
             isCompleted: false,
             isHighlighted: true
-        ).padding()
+        ){
+            
+        }.padding()
     }
     
     

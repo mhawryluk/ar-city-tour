@@ -37,7 +37,9 @@ struct TourView : View {
                 taskCompletedCallback: { task in
                     if task == tasks[currentTaskIndex].name {
                         taskCompletions[currentTaskIndex] = true
-                        currentTaskCompleted = true
+                        withAnimation {
+                            currentTaskCompleted = true
+                        }
                     } else {
                         for i in currentTaskIndex..<tasks.count {
                             if task == tasks[i].name {
@@ -67,20 +69,6 @@ struct TourView : View {
                 
                 Spacer()
                 
-                if currentTaskCompleted {
-                    Button {
-                        nextTask()
-                    } label: {
-                        Label("Next task", systemImage: "arrowshape.right.circle.fill")
-                            .labelStyle(.titleAndIcon)
-                            .imageScale(.large)
-                            .font(.system(size: 20))
-                            .padding(10)
-     
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .padding()
-                }
                 
                 if showingChallenge {
                     TaskView(
@@ -88,7 +76,20 @@ struct TourView : View {
                         index: currentTaskIndex + 1,
                         isCompleted: taskCompletions[currentTaskIndex],
                         isHighlighted: !currentTaskCompleted
-                    )
+                    ) {
+                        if currentTaskCompleted {
+                            Button {
+                                nextTask()
+                            } label: {
+                                Label("Next task", systemImage: "arrowshape.right.circle.fill")
+                                    .labelStyle(.titleAndIcon)
+                                    .padding(10)
+                            }
+                            .buttonStyle(.bordered)
+                            .padding()
+                        }
+                        
+                    }
                     .padding(.bottom, 30)
                     .offset(y: offset.height * 5)
                     .gesture(
@@ -168,8 +169,10 @@ struct TourView : View {
     
     private func nextTask() {
         if currentTaskIndex != tasks.count - 1 {
-            currentTaskIndex += 1
-            currentTaskCompleted = taskCompletions[currentTaskIndex]
+            withAnimation {
+                currentTaskIndex += 1
+                currentTaskCompleted = taskCompletions[currentTaskIndex]
+            }
         }
     }
 }
