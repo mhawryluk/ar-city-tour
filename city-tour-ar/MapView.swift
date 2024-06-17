@@ -72,58 +72,61 @@ struct MapView : View {
             HStack {
                 Text("Map")
                     .font(.title)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(alignment: .leading)
                     .bold()
                 
-                Button {
-                    showingRoute.toggle()
+                HStack {
+                    Spacer()
                     
-                    if showingRoute {
-                        getDirections()
-                    }
-                } label: {
-                    if showingRoute && route == nil {
-                        ProgressView()
-                    } else {
-                        Label(showingRoute ? "Hide route" : "Show route", systemImage: "arrow.triangle.turn.up.right.diamond")
-                            .padding(.vertical, 5)
-                    }
-                }
-                .buttonStyle(.bordered)
-                .tint(.accent.opacity(0.2))
-                .foregroundStyle(.accent)
-                
-                Menu {
                     Button {
-                        showingAllTasks.toggle()
+                        showingRoute.toggle()
+                        
+                        if showingRoute {
+                            getDirections()
+                        }
                     } label: {
-                        VStack {
-                            Label(showingAllTasks ? "Show only completed and current tasks" : "Show all tasks", systemImage: "eyeglasses")
+                        if showingRoute && route == nil {
+                            ProgressView()
+                        } else {
+                            Label(showingRoute ? "Hide route" : "Show route", systemImage: "arrow.triangle.turn.up.right.diamond")
+                                .padding(.vertical, 5)
                         }
                     }
-                    Button {
-                        position = MapCameraPosition.region(
-                            MKCoordinateRegion(
-                                center: CLLocationCoordinate2D(
-                                    latitude: tasks[currentTaskIndex].location.lat,
-                                    longitude: tasks[currentTaskIndex].location.long),
-                                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-                            )
-                        )
-                    } label: {
-                        Label("Center on current task", systemImage: "mappin.circle")
-                    }
+                    .buttonStyle(.bordered)
+                    .tint(.accent.opacity(0.2))
+                    .foregroundStyle(.accent)
                     
-                } label: {
-                    Label("Options", systemImage: "ellipsis.circle")
-                        .labelStyle(.iconOnly)
-                        .padding(.vertical, 5)
+                    Menu {
+                        Button {
+                            showingAllTasks.toggle()
+                        } label: {
+                            VStack {
+                                Label(showingAllTasks ? "Show only completed and current tasks" : "Show all tasks", systemImage: "eyeglasses")
+                            }
+                        }
+                        Button {
+                            position = MapCameraPosition.region(
+                                MKCoordinateRegion(
+                                    center: CLLocationCoordinate2D(
+                                        latitude: tasks[currentTaskIndex].location.lat,
+                                        longitude: tasks[currentTaskIndex].location.long),
+                                    span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                                )
+                            )
+                        } label: {
+                            Label("Center on current task", systemImage: "mappin.circle")
+                        }
+                        
+                    } label: {
+                        Label("Options", systemImage: "ellipsis.circle")
+                            .labelStyle(.iconOnly)
+                            .padding(.vertical, 5)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.accent.opacity(0.2))
+                    .foregroundStyle(.accent)
                 }
-                .buttonStyle(.bordered)
-                .tint(.accent.opacity(0.2))
-                .foregroundStyle(.accent)
-            }
-                .padding(.top, 30)
+            }.padding(.top, 30)
             
             Map(position: $position) {
                 UserAnnotation()
