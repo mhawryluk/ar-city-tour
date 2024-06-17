@@ -13,6 +13,7 @@ struct TourView : View {
     @State var showingPath = false
     @State var showingMap = false
     @State var showingMoreInfo = false
+    @State var showingQuestion = false
     
     @State var currentTaskIndex: Int = 0
     @State var taskCompletions: [Bool]
@@ -80,16 +81,31 @@ struct TourView : View {
                     ) {
                         if currentTaskCompleted {
                             
-                            HStack {
+                            VStack {
                                 
-                                Button {
-                                    showingMoreInfo = true
-                                } label: {
-                                    Label("Read more", systemImage: "text.book.closed")
-                                        .labelStyle(.titleAndIcon)
-                                        .padding(.vertical, 10)
+                                HStack {
+                                    if tasks[currentTaskIndex].moreInfo != nil {
+                                        Button {
+                                            showingMoreInfo = true
+                                        } label: {
+                                            Label("Read more", systemImage: "text.book.closed")
+                                                .labelStyle(.titleAndIcon)
+                                                .padding(.vertical, 10)
+                                        }
+                                        .buttonStyle(.bordered)
+                                    }
+                                    
+                                    if tasks[currentTaskIndex].question != nil {
+                                        Button {
+                                            showingQuestion = true
+                                        } label: {
+                                            Label("Quiz", systemImage: "questionmark.square.dashed")
+                                                .labelStyle(.titleAndIcon)
+                                                .padding(.vertical, 10)
+                                        }
+                                        .buttonStyle(.bordered)
+                                    }
                                 }
-                                .buttonStyle(.bordered)
                                 
                                 
                                 Button {
@@ -175,6 +191,13 @@ struct TourView : View {
             if let info = tasks[currentTaskIndex].moreInfo {
                 PoiInfoView(info: info)
                     .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            }
+        }
+        .sheet(isPresented: $showingQuestion) {
+            if let question = tasks[currentTaskIndex].question {
+                QuestionView(question: question)
+                    .presentationDetents([.fraction(0.7), .large])
                     .presentationDragIndicator(.visible)
             }
         }
