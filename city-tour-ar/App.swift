@@ -22,8 +22,6 @@ struct App : View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-
-                
                 TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour.id)
                 }, tasks: tasks)
                 

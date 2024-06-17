@@ -20,7 +20,7 @@ struct TourList: View {
                     .font(.system(size: 15))
                     .foregroundColor(.accent)
                     .padding()
-                    .background(.accent.opacity(0.1))
+//                    .background(.accent.opacity(0.1))
                     .cornerRadius(10)
                 Spacer()
             }.padding()
