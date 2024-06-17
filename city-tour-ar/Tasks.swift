@@ -56,7 +56,7 @@ let defaultTasks = [
         name: "medal",
         description: "Look for the blue book with stars on the cover.",
         location: Coords(lat: 50.064861, long: 19.924016),
-        moreInfo: PoiInfo(title: "This Adventure Ends", description: "A book by Emma Mills", imageNames: []),
+        moreInfo: PoiInfo(title: "This Adventure Ends", description: "A book by Emma Mills", imageNames: ["medal", "medal", "medal"]),
         question: PoiQuestion(question: "How many pages does the book have?", options: ["220", "350", "360", "400"], correctOption: 3)
     ),
     TourTask(name: "other", description: "Try to look for the other book.",  location: Coords(lat: 50.064, long: 19.92)),
