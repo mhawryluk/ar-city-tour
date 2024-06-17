@@ -17,7 +17,7 @@ struct TourView : View {
     
     @State var currentTaskIndex: Int = 0
     @State var taskCompletions: [Bool]
-    @State var currentTaskCompleted: Bool = true
+    @State var currentTaskCompleted: Bool = false
     @State var allTasksCompleted: Bool = false
     
     
@@ -212,6 +212,7 @@ struct TourView : View {
     }
     
     private func nextTask() {
+        print(tasks[currentTaskIndex])
         if currentTaskIndex != tasks.count - 1 {
             withAnimation {
                 currentTaskIndex += 1

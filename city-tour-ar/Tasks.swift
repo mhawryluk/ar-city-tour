@@ -8,8 +8,7 @@
 import Foundation
 import MapKit
 
-let defaultTour = Tour(id: "l1", name: "Test tour")
-let testKrakowTour = Tour(id: "l2", name: "Kraków City Center")
+let defaultTour = Tour(taskNames: ["medal", "other", "other2"], id: "l1", name: "Test tour")
 
 struct Coords: Hashable, Codable {
     var lat: Double
@@ -27,7 +26,7 @@ struct Coords: Hashable, Codable {
 struct PoiInfo: Hashable, Codable {
     var title: String
     var description: String
-    var imageNames: [String]
+    var imageIds: [String]
 }
 
 struct PoiQuestion: Hashable, Codable {
@@ -36,19 +35,30 @@ struct PoiQuestion: Hashable, Codable {
     var correctOption: Int
 }
 
+enum TaskCompletionType: String, Codable {
+    case ImageRecognition
+    case LocationAnchor
+    case ManualCompletion
+    case QuestionCompletion
+}
+
 struct TourTask: Hashable, Codable {
-    var tourId: String = defaultTour.id
     var name: String
     var description: String
     var location: Coords = Coords(lat: 50.063489, long: 19.930816)
     var moreInfo: PoiInfo?
     var question: PoiQuestion?
+    var completionType: TaskCompletionType? = .ImageRecognition
+    var sceneId: String?
+    var referenceImageIds: [String]?
 }
 
 struct Tour: Hashable, Codable {
+    var taskNames: [String]
     var id: String
     var name: String
     var city = "Krakow"
+    var description: String? = nil
 }
 
 let defaultTasks = [
@@ -56,32 +66,11 @@ let defaultTasks = [
         name: "medal",
         description: "Look for the blue book with stars on the cover.",
         location: Coords(lat: 50.064861, long: 19.924016),
-        moreInfo: PoiInfo(title: "This Adventure Ends", description: "A book by Emma Mills", imageNames: ["medal", "medal", "medal"]),
+        moreInfo: PoiInfo(title: "This Adventure Ends", description: "A book by Emma Mills", imageIds: ["medal", "medal", "medal"]),
         question: PoiQuestion(question: "How many pages does the book have?", options: ["220", "350", "360", "400"], correctOption: 3)
     ),
     TourTask(name: "other", description: "Try to look for the other book.",  location: Coords(lat: 50.064, long: 19.92)),
     TourTask(name: "other2", description: "And another one"),
-    
-    TourTask(
-        tourId: testKrakowTour.id,
-        name: "malczewski",
-        description: "Look for a memorial commemorating Jacek Malczewski. What year did he start living where you're standing today?",
-        location: Coords(lat: 50.063489, long: 19.930816)
-    ),
-    
-    TourTask(
-        tourId: testKrakowTour.id,
-        name: "bagatela",
-        description: "Look for a memorial plate about the Bagatela Theater, which you will stand next to. Hint: you might need to look down. Who came up with the name Bagatela?",
-        location: Coords(lat: 50.06355, long: 19.93264)
-    ),
-    
-    TourTask(
-        tourId: testKrakowTour.id,
-        name: "mickiewicz",
-        description: "This monument of Adam Mickiewicz is a common meeting spot for locals. What is the year written on the back of it?",
-        location: Coords(lat: 50.061400, long: 19.938143)
-    ),
 ]
 
-let defaultTours = [defaultTour, testKrakowTour]
+let defaultTours = [defaultTour]

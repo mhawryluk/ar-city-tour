@@ -28,8 +28,10 @@ struct TourList: View {
             List(tours, id: \.self) { tour in
                 NavigationLink {
                     TourView(tourName: tour.name,
-                             tasks: tasks.filter { task in
-                        task.tourId == tour.id
+                             tasks: tour.taskNames.compactMap { name in
+                        tasks.filter { task in
+                            task.name == name
+                        }.first
                     })
                 } label: {
                     HStack {

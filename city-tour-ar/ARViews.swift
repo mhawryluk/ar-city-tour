@@ -31,7 +31,7 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 // Creating a plane geometry
                 let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
                 
-                plane.firstMaterial?.diffuse.contents = UIColor.green.withAlphaComponent(0.7)
+                plane.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.4)
                 
                 print("Detected anchor: ", imageAnchor.referenceImage.name)
                 

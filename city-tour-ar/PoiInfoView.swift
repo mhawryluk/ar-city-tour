@@ -25,7 +25,7 @@ struct PoiInfoView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    ForEach(info.imageNames, id: \.self) { name in
+                    ForEach(info.imageIds, id: \.self) { name in
                         Image(name)
                             .resizable()
                             .scaledToFit()
@@ -44,6 +44,6 @@ struct PoiInfoView: View {
     PoiInfoView(info: PoiInfo(
         title: "Jacek Malczewski",
         description: "Jacek Malczewski (ur. 14 lipca 1854 w Radomiu, zm. 8 października 1929 w Krakowie) – polski malarz, jeden z głównych przedstawicieli symbolizmu przełomu XIX i XX wieku.",
-        imageNames: ["malczewski", "malczewski_art_1", "malczewski_art_2"])
+        imageIds: ["malczewski", "malczewski_art_1", "malczewski_art_2"])
     )
 }
