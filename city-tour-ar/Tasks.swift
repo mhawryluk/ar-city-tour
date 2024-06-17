@@ -24,11 +24,25 @@ struct Coords: Hashable, Codable {
     }
 }
 
+struct PoiInfo: Hashable, Codable {
+    var title: String
+    var description: String
+    var imageNames: [String]
+}
+
+struct PoiQuestion: Hashable, Codable {
+    var question: String
+    var options: [String]
+    var correctOption: Int
+}
+
 struct TourTask: Hashable, Codable {
     var tourId: String = defaultTour.id
     var name: String
     var description: String
     var location: Coords = Coords(lat: 50.063489, long: 19.930816)
+    var moreInfo: PoiInfo?
+    var question: PoiQuestion?
 }
 
 struct Tour: Hashable, Codable {
@@ -41,7 +55,8 @@ let defaultTasks = [
     TourTask(
         name: "medal",
         description: "Look for the blue book with stars on the cover.",
-        location: Coords(lat: 50.064861, long: 19.924016)
+        location: Coords(lat: 50.064861, long: 19.924016),
+        moreInfo: PoiInfo(title: "This Adventure Ends", description: "A book by Emma Mills", imageNames: [])
     ),
     TourTask(name: "other", description: "Try to look for the other book.",  location: Coords(lat: 50.064, long: 19.92)),
     TourTask(name: "other2", description: "And another one"),
