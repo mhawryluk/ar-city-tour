@@ -15,7 +15,6 @@ struct App : View {
     @State var tours: [Tour] = defaultTours
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var completedTours: [String] = ["l1"]
     
     var body: some View {
         NavigationStack {
@@ -23,11 +22,16 @@ struct App : View {
                     if isLoading {
                         ProgressView("Fetching data...")
                     } else {
-                        TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour.id)
-                        }, tasks: tasks)
                         
-                        TourList(title: "Completed tours", completed: true, tours: tours.filter { tour in completedTours.contains(tour.id)
+                        let completedTours = tours.filter { tour in
+                            UserDefaults.standard.bool(forKey: "t_\(tour.id)")
+                        }
+                        
+                        TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour)
                         }, tasks: tasks)
+        
+                        
+                        TourList(title: "Completed tours", completed: true, tours: completedTours, tasks: tasks)
                     }
                 }
                 .toolbar {
@@ -54,6 +58,7 @@ struct App : View {
                 .navigationTitle("AR Tours")
                 .padding()
                 .onAppear {
+//                    purgeData()
                     fetchTourData()
                 }
         }
@@ -87,6 +92,16 @@ struct App : View {
             }
             
             isLoading = false
+        }
+    }
+    
+    func purgeData() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            if key.starts(with: "t_") {
+                defaults.removeObject(forKey: key)
+            }
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-let defaultTour = Tour(taskNames: ["medal", "other", "other2"], id: "l1", name: "Test tour")
+let defaultTour = Tour(taskNames: ["medal", "other", "other2"], id: "l1", name: "Dev Test Tour. Book Covers")
 
 struct Coords: Hashable, Codable {
     var lat: Double

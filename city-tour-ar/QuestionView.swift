@@ -17,6 +17,7 @@ struct QuestionView: View {
             Text(question.question)
                 .font(.title)
                 .bold()
+                .padding(.bottom)
             
             VStack {
                 ForEach(Array(question.options.enumerated()), id: \.offset) { index, option in

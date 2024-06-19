@@ -23,14 +23,16 @@ struct TourView : View {
     
     @State private var offset = CGSize.zero
     
-    let tourName: String
+    let tour: Tour
     let tasks: [TourTask]
     
-    init(tourName: String, tasks: [TourTask]) {
-        self.tourName = tourName
+    init(tour: Tour, tasks: [TourTask]) {
+        self.tour = tour
         self.tasks = tasks
         
-        self.taskCompletions = tasks.map{ task in false}
+        self.taskCompletions = tasks.map { task
+            in false
+        }
     }
     
     var body: some View {
@@ -207,17 +209,23 @@ struct TourView : View {
                 message: Text("Well done!")
             )
         }
-        .navigationTitle(tourName)
+        .navigationTitle(tour.name)
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    private func markSelfAsCompleted() {
+        UserDefaults.standard.setValue(true, forKey: "t_\(tour.id)")
+    }
+    
     private func nextTask() {
-        print(tasks[currentTaskIndex])
         if currentTaskIndex != tasks.count - 1 {
             withAnimation {
                 currentTaskIndex += 1
                 currentTaskCompleted = taskCompletions[currentTaskIndex]
             }
+        } else {
+            allTasksCompleted = true
+            self.markSelfAsCompleted()
         }
     }
 }
@@ -225,6 +233,6 @@ struct TourView : View {
 
 #Preview {
     NavigationStack {
-        TourView(tourName: "Tour", tasks: defaultTasks)
+        TourView(tour: defaultTours[0], tasks: defaultTasks)
     }
 }

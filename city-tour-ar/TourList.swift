@@ -28,20 +28,20 @@ struct TourList: View {
                 Text(title)
                     .font(.system(size: 15))
                     .bold()
-                    .foregroundColor(.accent)
+                    .foregroundColor(.blue)
                     .padding()
                     .cornerRadius(10)
                 
                 Line()
                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [6]))
                     .frame(height: 1)
-                    .foregroundStyle(.accent)
+                    .foregroundStyle(.blue)
                 
             }.padding(.vertical)
             
             List(tours, id: \.self) { tour in
                 NavigationLink {
-                    TourView(tourName: tour.name,
+                    TourView(tour: tour,
                              tasks: tour.taskNames.compactMap { name in
                         tasks.filter { task in
                             task.name == name
@@ -51,24 +51,29 @@ struct TourList: View {
                     HStack {
                         Image(systemName: "map.circle.fill")
                             .foregroundStyle(.accent)
+                            .padding(.trailing)
                         
                         CheckmarkView(textView: AnyView(
                             
-                            VStack(alignment: .leading) {
-                                Text(tour.name)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(tour.name)
+                                        .font(.headline)
+                                    
+                                    Text("\(tour.city)")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                        .padding(.leading, 3)
+                                }
                                 
-                                Text("\(tour.city)")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.leading, 3)
-                            }
+                                Spacer()
+                            }.frame(maxWidth: .infinity)
                         ), isCompleted: completed)
-                        .font(.headline)
                         
                     }
                     .imageScale(.large)
 
-                }
+                }.padding(.horizontal, -5)
             }
             .listStyle(.plain)
             .overlay {
