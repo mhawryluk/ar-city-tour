@@ -48,6 +48,8 @@
 		D35295FD2BFE207F00BF8A24 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = D35295FC2BFE207F00BF8A24 /* FirebaseVertexAI-Preview */; };
 		D35295FF2BFE3FE900BF8A24 /* TourList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35295FE2BFE3FE900BF8A24 /* TourList.swift */; };
 		D37167AF2C236F1700C8F0E0 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37167AE2C236F1700C8F0E0 /* CreditsView.swift */; };
+		D37167B12C23976E00C8F0E0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D37167B02C23976E00C8F0E0 /* Launch Screen.storyboard */; };
+		D37167B32C239B5B00C8F0E0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D37167B22C239B5A00C8F0E0 /* logo.png */; };
 		D3ECA3D52ADFDEFF001CC529 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */; };
 		D3ECA3D72ADFDEFF001CC529 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECA3D62ADFDEFF001CC529 /* App.swift */; };
 		D3ECA3D92ADFDF01001CC529 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		D35295C32BFE202E00BF8A24 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D35295FE2BFE3FE900BF8A24 /* TourList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourList.swift; sourceTree = "<group>"; };
 		D37167AE2C236F1700C8F0E0 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		D37167B02C23976E00C8F0E0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		D37167B22C239B5A00C8F0E0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		D3DA38002BFA3589000F601B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3ECA3D12ADFDEFF001CC529 /* city-tour-ar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "city-tour-ar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3ECA3D42ADFDEFF001CC529 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		D3ECA3D32ADFDEFF001CC529 /* city-tour-ar */ = {
 			isa = PBXGroup;
 			children = (
+				D37167B22C239B5A00C8F0E0 /* logo.png */,
 				D35295C32BFE202E00BF8A24 /* GoogleService-Info.plist */,
 				D3DA38002BFA3589000F601B /* Info.plist */,
 				D3ECA3D82ADFDF01001CC529 /* Assets.xcassets */,
@@ -152,6 +157,7 @@
 				D3210AF52BC1DA8F00F47F1F /* TourView.swift */,
 				D3260CA52C203B1D000EB7B1 /* QuestionView.swift */,
 				D3260CA12C1E2D92000EB7B1 /* StorageHelper.swift */,
+				D37167B02C23976E00C8F0E0 /* Launch Screen.storyboard */,
 			);
 			path = "city-tour-ar";
 			sourceTree = "<group>";
@@ -257,7 +263,9 @@
 			files = (
 				D3ECA3DC2ADFDF01001CC529 /* Preview Assets.xcassets in Resources */,
 				D35295C42BFE202E00BF8A24 /* GoogleService-Info.plist in Resources */,
+				D37167B32C239B5B00C8F0E0 /* logo.png in Resources */,
 				D31D32A42BB321280094FF88 /* art.scnassets in Resources */,
+				D37167B12C23976E00C8F0E0 /* Launch Screen.storyboard in Resources */,
 				D3ECA3D92ADFDF01001CC529 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +432,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs location info to help user navigate to the tour tasks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -460,6 +469,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs location info to help user navigate to the tour tasks.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
