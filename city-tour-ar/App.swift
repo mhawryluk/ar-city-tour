@@ -39,6 +39,13 @@ struct App : View {
                                 Label("Refresh tour data", systemImage: "arrow.clockwise")
                             }
                             
+                            
+                            NavigationLink {
+                                CreditsView()
+                            } label: {
+                                Label("Credits", systemImage: "info")
+                            }
+                            
                         } label: {
                             Label("Options", systemImage: "ellipsis.circle")
                         }
