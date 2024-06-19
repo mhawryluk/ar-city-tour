@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let uid = user.uid
-            print("uid: ", uid)
         }
         
         // Create the SwiftUI view that provides the window contents.
