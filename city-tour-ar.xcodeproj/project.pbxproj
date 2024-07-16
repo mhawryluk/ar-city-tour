@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D31D32A42BB321280094FF88 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D31D32A32BB321280094FF88 /* art.scnassets */; };
 		D3210AEA2BC1BC1800F47F1F /* ARViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AE92BC1BC1800F47F1F /* ARViews.swift */; };
-		D3210AEC2BC1C46000F47F1F /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AEB2BC1C46000F47F1F /* Tasks.swift */; };
+		D3210AEC2BC1C46000F47F1F /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AEB2BC1C46000F47F1F /* DataStructures.swift */; };
 		D3210AF02BC1CAF400F47F1F /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AEF2BC1CAF400F47F1F /* TaskView.swift */; };
 		D3210AF22BC1D21000F47F1F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AF12BC1D21000F47F1F /* MapView.swift */; };
 		D3210AF42BC1D26B00F47F1F /* TourPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3210AF32BC1D26B00F47F1F /* TourPathView.swift */; };
@@ -59,7 +59,7 @@
 /* Begin PBXFileReference section */
 		D31D32A32BB321280094FF88 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		D3210AE92BC1BC1800F47F1F /* ARViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViews.swift; sourceTree = "<group>"; };
-		D3210AEB2BC1C46000F47F1F /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		D3210AEB2BC1C46000F47F1F /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		D3210AEF2BC1CAF400F47F1F /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		D3210AF12BC1D21000F47F1F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D3210AF32BC1D26B00F47F1F /* TourPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPathView.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 				D37167AE2C236F1700C8F0E0 /* CreditsView.swift */,
 				D35295FE2BFE3FE900BF8A24 /* TourList.swift */,
 				D3210AE92BC1BC1800F47F1F /* ARViews.swift */,
-				D3210AEB2BC1C46000F47F1F /* Tasks.swift */,
+				D3210AEB2BC1C46000F47F1F /* DataStructures.swift */,
 				D3210AEF2BC1CAF400F47F1F /* TaskView.swift */,
 				D3260CA32C203303000EB7B1 /* PoiInfoView.swift */,
 				D3210AF12BC1D21000F47F1F /* MapView.swift */,
@@ -279,7 +279,7 @@
 			files = (
 				D3210AF42BC1D26B00F47F1F /* TourPathView.swift in Sources */,
 				D3260CA42C203303000EB7B1 /* PoiInfoView.swift in Sources */,
-				D3210AEC2BC1C46000F47F1F /* Tasks.swift in Sources */,
+				D3210AEC2BC1C46000F47F1F /* DataStructures.swift in Sources */,
 				D3210AF22BC1D21000F47F1F /* MapView.swift in Sources */,
 				D3260CA62C203B1D000EB7B1 /* QuestionView.swift in Sources */,
 				D3210AEA2BC1BC1800F47F1F /* ARViews.swift in Sources */,

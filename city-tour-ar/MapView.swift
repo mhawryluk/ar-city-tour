@@ -243,6 +243,7 @@ struct MapView : View {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
         request.destination = self.tasks[self.currentTaskIndex].location.asMapItem()
+        request.transportType = .walking
         
         Task {
             let directions = MKDirections(request: request)
