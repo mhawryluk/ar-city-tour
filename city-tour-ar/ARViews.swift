@@ -22,6 +22,8 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         
+        print("anchor: ", anchor)
+        
         // Perform tasks on the background thread
         DispatchQueue.global().async { [self] in
             
@@ -33,7 +35,7 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                 
                 plane.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.4)
                 
-                print("Detected anchor: ", imageAnchor.referenceImage.name)
+                print("Detected image anchor: ", imageAnchor.referenceImage.name ?? "")
                 
                 let name = imageAnchor.referenceImage.name
                 guard let taskName = name?.split(separator: "_").first else {
@@ -58,6 +60,28 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
                     DispatchQueue.main.async {
                         planeNode.addChildNode(nodeScene)
                         node.addChildNode(planeNode)
+                    }
+                }
+            }
+            
+            if let objectAnchor = anchor as? ARObjectAnchor {
+                print("Detected object anchor: ", objectAnchor.referenceObject.name ?? "")
+                
+                let name = objectAnchor.referenceObject.name
+                guard let taskName = name?.split(separator: "_").first else {
+                    return
+                }
+                
+                self.taskCompletedCallback(String(taskName))
+                
+                print("taskName: ", taskName)
+                if let nodeScene = self.getNodeScene(name: String(taskName)) {
+                    
+                    print("nodeScene", nodeScene)
+                    
+                    // Adding nodes on the main thread
+                    DispatchQueue.main.async {
+                        node.addChildNode(nodeScene)
                     }
                 }
             }
@@ -110,8 +134,16 @@ struct ARViewContainer: UIViewRepresentable {
             fatalError("Missing expected asset catalog resources.")
         }
         
+        guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else {
+            fatalError("Missing expected asset catalog resources.")
+        }
+        
+        print(referenceObjects.count, referenceObjects)
+        
         let configuration = ARWorldTrackingConfiguration()
         configuration.detectionImages = referenceImages
+        configuration.detectionObjects = referenceObjects
+        
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
         return sceneView
