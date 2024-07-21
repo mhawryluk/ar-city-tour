@@ -123,6 +123,8 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
 struct ARViewContainer: UIViewRepresentable {
 
     let taskCompletedCallback: (String) -> Void
+    let referenceImages: Set<ARReferenceImage>
+    let referenceObjects: Set<ARReferenceObject>
     
     func makeUIView(context: Context) -> some UIView {
         
@@ -130,19 +132,11 @@ struct ARViewContainer: UIViewRepresentable {
         sceneView.showsStatistics = false
         sceneView.delegate = context.coordinator
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else {
-            fatalError("Missing expected asset catalog resources.")
-        }
-        
-        guard let referenceObjects = ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) else {
-            fatalError("Missing expected asset catalog resources.")
-        }
-        
-        print(referenceObjects.count, referenceObjects)
-        
         let configuration = ARWorldTrackingConfiguration()
         configuration.detectionImages = referenceImages
         configuration.detectionObjects = referenceObjects
+        
+        print("configuration reference images", configuration.detectionImages ?? [])
         
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         

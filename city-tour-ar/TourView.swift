@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ARKit
 
 struct TourView : View {
     
@@ -20,15 +21,19 @@ struct TourView : View {
     @State var currentTaskCompleted: Bool = false
     @State var allTasksCompleted: Bool = false
     
+    let referenceImages: Set<ARReferenceImage>
+    let referenceObjects: Set<ARReferenceObject>
     
     @State private var offset = CGSize.zero
     
     let tour: Tour
     let tasks: [TourTask]
     
-    init(tour: Tour, tasks: [TourTask]) {
+    init(tour: Tour, tasks: [TourTask], referenceImages: Set<ARReferenceImage>, referenceObjects: Set<ARReferenceObject>) {
         self.tour = tour
         self.tasks = tasks
+        self.referenceImages = referenceImages
+        self.referenceObjects = referenceObjects
         
         self.taskCompletions = tasks.map { task
             in false
@@ -39,21 +44,32 @@ struct TourView : View {
         ZStack {
             ARViewContainer(
                 taskCompletedCallback: { task in
-                    if task == tasks[currentTaskIndex].name {
+                
+                if task == tasks[currentTaskIndex].name {
+                    if tasks[currentTaskIndex].completionTypes?.contains(.ReferenceRecognition) ?? true {
                         taskCompletions[currentTaskIndex] = true
                         withAnimation {
                             currentTaskCompleted = true
                         }
-                    } else {
-                        for i in currentTaskIndex..<tasks.count {
-                            if task == tasks[i].name {
+                    }
+                } else {
+                    for i in currentTaskIndex..<tasks.count {
+                        
+                        if task == tasks[i].name {
+                            if tasks[i].completionTypes?.contains(.ReferenceRecognition) ?? true {
                                 taskCompletions[i] = true
                             }
                         }
                     }
                 }
+                },
+                
+                referenceImages: (ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(self.referenceImages),
+                
+                referenceObjects: (ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(self.referenceObjects)
+                
             ).edgesIgnoringSafeArea(.all)
-    
+            
             VStack {
                 HStack {
                     Spacer()
@@ -181,8 +197,8 @@ struct TourView : View {
                 tasks: tasks,
                 currentTaskIndex: currentTaskIndex
             )
-                .padding()
-                .presentationDragIndicator(.visible)
+            .padding()
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showingPath){
             TourPathView(tasks: tasks, currentTaskIndex: currentTaskIndex)
@@ -233,6 +249,6 @@ struct TourView : View {
 
 #Preview {
     NavigationStack {
-        TourView(tour: defaultTours[0], tasks: defaultTasks)
+        TourView(tour: defaultTours[0], tasks: defaultTasks, referenceImages: [], referenceObjects: [])
     }
 }

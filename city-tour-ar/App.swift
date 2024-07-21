@@ -7,6 +7,11 @@
 
 import SwiftUI
 import FirebaseFirestore
+import ARKit
+
+
+var referenceImages: Set<ARReferenceImage> = []
+var referenceObjects: Set<ARReferenceObject> = []
 
 struct App : View {
     
@@ -86,6 +91,26 @@ struct App : View {
                 
                     tasks.append(data)
                 }
+                
+                referenceImages = []
+                referenceObjects = []
+                
+                for task in self.tasks {
+                    for refImageDescriptor in task.referenceImages ?? [] {
+                        StorageHelper.asyncDownload(relativePath: "references/\(refImageDescriptor.fileName)") { fileUrl in
+                            
+                            let ref = StorageHelper.createResourceImage(relativePath: "references/\(refImageDescriptor.fileName)", physicalWidth: refImageDescriptor.physicalWidth)
+                            
+                            ref?.name = "\(task.name)_\(refImageDescriptor.fileName)"
+                            
+                            if let ref {
+                                referenceImages.insert(ref)
+                            }
+                        }
+                    }
+                }
+                
+                print(referenceImages)
                 
             } catch {
                 print("Error getting document: \(error)")

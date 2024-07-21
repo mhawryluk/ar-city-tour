@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import ARKit
 
 class StorageHelper {
     static private let storage = Storage.storage()
@@ -30,5 +31,25 @@ class StorageHelper {
             
             callback(localUrl)
         }.resume()
+    }
+    
+    class func createResourceImage(relativePath: String, physicalWidth: Float) -> ARReferenceImage? {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = docsUrl.appendingPathComponent(relativePath)
+        
+        do {
+            
+            let imageData = try Data(contentsOf: fileUrl)
+            let image = UIImage(data: imageData)?.cgImage
+            let reference  = ARReferenceImage(image!, orientation: CGImagePropertyOrientation.up, physicalWidth: CGFloat(physicalWidth)
+            )
+            
+            reference.name = relativePath
+            return reference
+        } catch {
+            print("error loading image: \(error)")
+        }
+        
+        return nil
     }
 }

@@ -46,7 +46,10 @@ struct TourList: View {
                         tasks.filter { task in
                             task.name == name
                         }.first
-                    })
+                    },
+                             referenceImages: referenceImages,
+                             referenceObjects: referenceObjects
+                    )
                 } label: {
                     HStack {
                         Image(systemName: "map.circle.fill")
@@ -72,7 +75,7 @@ struct TourList: View {
                         
                     }
                     .imageScale(.large)
-
+                    
                 }.padding(.horizontal, -5)
             }
             .listStyle(.plain)

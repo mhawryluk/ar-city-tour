@@ -5,79 +5,10 @@
   },
   "resources" : [
     {
-      "filename" : "bagatela_1.arreferenceimage"
-    },
-    {
-      "filename" : "bagatela_2.arreferenceimage"
-    },
-    {
       "filename" : "bottle_1.arobject"
     },
     {
       "filename" : "camel_1.arobject"
-    },
-    {
-      "filename" : "dragon-with-map_1.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_2.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_3.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_4.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_5.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_6.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_7.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_8.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_9.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_10.arreferenceimage"
-    },
-    {
-      "filename" : "dragon-with-map_11.arreferenceimage"
-    },
-    {
-      "filename" : "malczewski_1.arreferenceimage"
-    },
-    {
-      "filename" : "medal.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_1.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_2.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_3.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_4.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_5.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_6.arreferenceimage"
-    },
-    {
-      "filename" : "mickiewicz_7.arreferenceimage"
-    },
-    {
-      "filename" : "other.arreferenceimage"
     }
   ]
 }
