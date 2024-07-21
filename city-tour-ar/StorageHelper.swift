@@ -17,11 +17,6 @@ class StorageHelper {
         let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileUrl = docsUrl.appendingPathComponent(relativePath)
         
-        if FileManager.default.fileExists(atPath: fileUrl.path) {
-            callback(fileUrl)
-            return
-        }
-        
         let storageRef = storage.reference(withPath: relativePath)
         storageRef.write(toFile: fileUrl) { url, error in
             guard let localUrl = url else {
@@ -51,5 +46,11 @@ class StorageHelper {
         }
         
         return nil
+    }
+    
+    class func removeAllReferences() {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("references")
+        
+        try? FileManager.default.removeItem(at: docsUrl)
     }
 }

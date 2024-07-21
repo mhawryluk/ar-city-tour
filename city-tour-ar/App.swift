@@ -23,49 +23,49 @@ struct App : View {
     
     var body: some View {
         NavigationStack {
-                VStack(alignment: .leading) {
-                    if isLoading {
-                        ProgressView("Fetching data...")
-                    } else {
-                        
-                        let completedTours = tours.filter { tour in
-                            UserDefaults.standard.bool(forKey: "t_\(tour.id)")
-                        }
-                        
-                        TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour)
-                        }, tasks: tasks)
-        
-                        
-                        TourList(title: "Completed tours", completed: true, tours: completedTours, tasks: tasks)
+            VStack(alignment: .leading) {
+                if isLoading {
+                    ProgressView("Fetching data...")
+                } else {
+                    
+                    let completedTours = tours.filter { tour in
+                        UserDefaults.standard.bool(forKey: "t_\(tour.id)")
                     }
+                    
+                    TourList(title: "New tours", completed: false, tours: tours.filter { tour in !completedTours.contains(tour)
+                    }, tasks: tasks)
+                    
+                    
+                    TourList(title: "Completed tours", completed: true, tours: completedTours, tasks: tasks)
                 }
-                .toolbar {
-                    ToolbarItem {
-                        Menu {
-                            Button {
-                                fetchTourData()
-                            } label: {
-                                Label("Refresh tour data", systemImage: "arrow.clockwise")
-                            }
-                            
-                            
-                            NavigationLink {
-                                CreditsView()
-                            } label: {
-                                Label("Credits", systemImage: "info")
-                            }
-                            
+            }
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Button {
+                            fetchTourData()
                         } label: {
-                            Label("Options", systemImage: "ellipsis.circle")
+                            Label("Refresh tour data", systemImage: "arrow.clockwise")
                         }
+                        
+                        
+                        NavigationLink {
+                            CreditsView()
+                        } label: {
+                            Label("Credits", systemImage: "info")
+                        }
+                        
+                    } label: {
+                        Label("Options", systemImage: "ellipsis.circle")
                     }
                 }
-                .navigationTitle("AR Tours")
-                .padding()
-                .onAppear {
-//                    purgeData()
-                    fetchTourData()
-                }
+            }
+            .navigationTitle("AR Tours")
+            .padding()
+            .onAppear {
+                //                    purgeData()
+                fetchTourData()
+            }
         }
     }
     
@@ -75,27 +75,29 @@ struct App : View {
         
         Task {
             let db = Firestore.firestore()
-
+            
             do {
                 let toursDocuments = try await db.collection("tours").getDocuments()
                 
                 for document in toursDocuments.documents {
                     let data = try document.data(as: Tour.self)
-                
+                    
                     tours.append(data)
                 }
                 
                 let taskDocuments = try await db.collection("tasks").getDocuments()
                 for document in taskDocuments.documents {
                     let data = try document.data(as: TourTask.self)
-                
+                    
                     tasks.append(data)
                 }
                 
+                StorageHelper.removeAllReferences()
                 referenceImages = []
                 referenceObjects = []
                 
                 for task in self.tasks {
+                    print("downloading image refs for: ", task.name)
                     for refImageDescriptor in task.referenceImages ?? [] {
                         StorageHelper.asyncDownload(relativePath: "references/\(refImageDescriptor.fileName)") { fileUrl in
                             
@@ -109,8 +111,6 @@ struct App : View {
                         }
                     }
                 }
-                
-                print(referenceImages)
                 
             } catch {
                 print("Error getting document: \(error)")

@@ -62,11 +62,7 @@ struct TourView : View {
                         }
                     }
                 }
-                },
-                
-                referenceImages: (ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(self.referenceImages),
-                
-                referenceObjects: (ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(self.referenceObjects)
+                }
                 
             ).edgesIgnoringSafeArea(.all)
             

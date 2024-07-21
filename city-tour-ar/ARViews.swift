@@ -123,8 +123,6 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
 struct ARViewContainer: UIViewRepresentable {
 
     let taskCompletedCallback: (String) -> Void
-    let referenceImages: Set<ARReferenceImage>
-    let referenceObjects: Set<ARReferenceObject>
     
     func makeUIView(context: Context) -> some UIView {
         
@@ -133,8 +131,10 @@ struct ARViewContainer: UIViewRepresentable {
         sceneView.delegate = context.coordinator
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = referenceImages
-        configuration.detectionObjects = referenceObjects
+
+        configuration.detectionImages = (ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(referenceImages)
+    
+        configuration.detectionObjects = (ARReferenceObject.referenceObjects(inGroupNamed: "AR Resources", bundle: nil) ?? []).union(referenceObjects)
         
         print("configuration reference images", configuration.detectionImages ?? [])
         
