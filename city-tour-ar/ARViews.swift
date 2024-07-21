@@ -91,11 +91,19 @@ class ARCoordinator: NSObject, ARSCNViewDelegate {
     }
     
     private func getNodeScene(name: String) -> SCNNode? {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = docsUrl.appendingPathComponent("models/\(name).scn")
+        print("model db file url: ", fileUrl)
+        
+        if let nodeScene = try? SCNScene(url: fileUrl) {
+            let node = nodeScene.rootNode
+            print("first node found in db models: \(name)")
+            return node
+        }
         
         if let nodeScene = SCNScene(named: "art.scnassets/\(name).scn") {
-            
             let node = nodeScene.rootNode
-            print("first node found \(name)")
+            print("first node found in local models: \(name)")
             return node
         }
         

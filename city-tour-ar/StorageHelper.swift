@@ -64,8 +64,13 @@ class StorageHelper {
     }
     
     class func removeAllReferences() {
-        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("references")
-        
-        try? FileManager.default.removeItem(at: docsUrl)
+        for dir in ["referenceImages", "referenceObjects", "models"] {
+            let url = FileManager.default.urls(
+                for: .documentDirectory,
+                in: .userDomainMask
+            ).first!.appendingPathComponent(dir)
+            
+            try? FileManager.default.removeItem(at: url)
+        }
     }
 }

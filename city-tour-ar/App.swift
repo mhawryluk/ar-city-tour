@@ -98,10 +98,11 @@ struct App : View {
                 
                 for task in self.tasks {
                     print("downloading image refs for: ", task.name)
+                    
                     for refImageDescriptor in task.referenceImages ?? [] {
-                        StorageHelper.asyncDownload(relativePath: "references/\(refImageDescriptor.fileName)") { fileUrl in
+                        StorageHelper.asyncDownload(relativePath: "referenceImages/\(refImageDescriptor.fileName)") { fileUrl in
                             
-                            let ref = StorageHelper.createResourceImage(relativePath: "references/\(refImageDescriptor.fileName)", physicalWidth: refImageDescriptor.physicalWidth)
+                            let ref = StorageHelper.createResourceImage(relativePath: "referenceImages/\(refImageDescriptor.fileName)", physicalWidth: refImageDescriptor.physicalWidth)
                             
                             ref?.name = "\(task.name)_\(refImageDescriptor.fileName)"
                             
@@ -114,13 +115,20 @@ struct App : View {
                     for refObjectDescriptor in task.referenceObjects ?? [] {
                         StorageHelper.asyncDownload(relativePath: "referenceObjects/\(refObjectDescriptor.fileName)") { fileUrl in
                             
-                            let ref = StorageHelper.createResourceObject(relativePath: "references/\(refObjectDescriptor.fileName)")
+                            let ref = StorageHelper.createResourceObject(relativePath: "referenceObjects/\(refObjectDescriptor.fileName)")
                             
                             ref?.name = "\(task.name)_\(refObjectDescriptor.fileName)"
                             
                             if let ref {
                                 referenceObjects.insert(ref)
                             }
+                        }
+                    }
+                    
+                    if let model = task.sceneModel {
+                        StorageHelper.asyncDownload(
+                            relativePath: "models/\(model.fileName)") {
+                                fileUrl in print(fileUrl)
                         }
                     }
                 }

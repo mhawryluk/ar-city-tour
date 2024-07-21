@@ -43,6 +43,16 @@ enum TaskCompletionType: String, Codable {
     case QuestionCompletion
 }
 
+enum SceneType: String, Codable {
+    case SceneKit
+    case RealityKit
+}
+
+struct SceneModelDescriptor: Hashable, Codable {
+    var sceneType: SceneType = .SceneKit
+    var fileName: String
+}
+
 struct ResourceDescriptor: Hashable, Codable {
     var fileName: String
 }
@@ -58,7 +68,7 @@ struct TourTask: Hashable, Codable {
     var location: Coords = Coords(lat: 50.063489, long: 19.930816)
     var moreInfo: PoiInfo?
     var question: PoiQuestion?
-    var sceneId: String?
+    var sceneModel: SceneModelDescriptor?
     var completionTypes: [TaskCompletionType]? = [.ReferenceRecognition]
     var referenceImages: [ReferenceImageDescriptor]?
     var referenceObjects: [ResourceDescriptor]?
