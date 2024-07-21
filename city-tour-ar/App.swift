@@ -110,6 +110,19 @@ struct App : View {
                             }
                         }
                     }
+                    
+                    for refObjectDescriptor in task.referenceObjects ?? [] {
+                        StorageHelper.asyncDownload(relativePath: "referenceObjects/\(refObjectDescriptor.fileName)") { fileUrl in
+                            
+                            let ref = StorageHelper.createResourceObject(relativePath: "references/\(refObjectDescriptor.fileName)")
+                            
+                            ref?.name = "\(task.name)_\(refObjectDescriptor.fileName)"
+                            
+                            if let ref {
+                                referenceObjects.insert(ref)
+                            }
+                        }
+                    }
                 }
                 
             } catch {

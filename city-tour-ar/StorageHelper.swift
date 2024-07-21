@@ -48,6 +48,21 @@ class StorageHelper {
         return nil
     }
     
+    class func createResourceObject(relativePath: String) -> ARReferenceObject? {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = docsUrl.appendingPathComponent(relativePath)
+        
+        do {
+            let reference  = try ARReferenceObject(archiveURL: fileUrl)
+            reference.name = relativePath
+            return reference
+        } catch {
+            print("error loading ref object: \(error)")
+        }
+        
+        return nil
+    }
+    
     class func removeAllReferences() {
         let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("references")
         
