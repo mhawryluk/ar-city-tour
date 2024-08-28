@@ -131,6 +131,13 @@ struct App : View {
                                 fileUrl in print(fileUrl)
                         }
                     }
+                    
+                    for imageId in task.moreInfo?.imageIds ?? [] {
+                        StorageHelper.asyncDownload(
+                            relativePath: "moreInfoPictures/\(imageId)") {
+                                fileUrl in print(fileUrl)
+                        }
+                    }
                 }
                 
             } catch {

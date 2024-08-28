@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import ARKit
+import SwiftUI
 
 class StorageHelper {
     static private let storage = Storage.storage()
@@ -72,5 +73,22 @@ class StorageHelper {
             
             try? FileManager.default.removeItem(at: url)
         }
+    }
+    
+    class func getImage(relativePath: String) -> Image? {
+        let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = docsUrl.appendingPathComponent(relativePath)
+        
+        do {
+            let imageData = try Data(contentsOf: fileUrl)
+            if let image = UIImage(data: imageData) {
+                return Image(uiImage: image)
+            }
+            return nil
+        } catch {
+            print("error loading image: \(error)")
+        }
+        
+        return nil
     }
 }
