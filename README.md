@@ -2,7 +2,7 @@
 
 <img style="width: 200px" src="https://github.com/user-attachments/assets/8ec59e8f-9363-4019-b9ce-ffb23e168cda">
 
-AR City Tour is an mobile application for the iOS platform. It uses Augmented Reality to expand the experience of city tourism; make it more interactive, fun, and approachable. It allows the users to explore cities by completing any of the configured tours. Each tour is comprised of a list of tasks - places to find in their surrounding, connected with a specific object/artifact. When user reaches set place, thus completing the task, they are presented with an extended experience, more knowledge and visuals through virtual objects presented on the camera view, dedicated panels inside the app, or even in-app quizzes.
+AR City Tour is a mobile application for the iOS platform. It uses Augmented Reality to expand the experience of city tourism; make it more interactive, fun, and approachable. It allows the users to explore cities by completing any of the configured tours. Each tour is comprised of a list of tasks - places to find in the city, connected with a specific object/artifact. When user reaches set place, thus completing the task, they are presented with an extended experience, more knowledge and visuals through virtual objects presented on the camera view, dedicated panels inside the app, or even in-app quizzes.
 
 ## Preview
 
